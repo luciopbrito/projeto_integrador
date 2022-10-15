@@ -1,14 +1,14 @@
 "use strict";
 let menuopen = false;
 
-$(document).on("click", ".menu__mobile", function(){
+$(document).on("click", ".menu__mobile", function () {
     if (menuopen == false) {
         $(".menu__mobile").attr("class", "menu__mobile off");
-        $(".menu__mobile img").attr("src", "./assets/list.svg");
+        $(".menu__mobile img").attr("src", "./assets/icons/list.svg");
         menuopen = !menuopen;
-    }else {
+    } else {
         $(".menu__mobile").attr("class", "menu__mobile open");
-        $(".menu__mobile img").attr("src", "./assets/x-lg.svg");
+        $(".menu__mobile img").attr("src", "./assets/icons/x-lg.svg");
         menuopen = !menuopen;
     }
 });
