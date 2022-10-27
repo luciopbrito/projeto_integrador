@@ -76,6 +76,32 @@ body {
 .txt__cap {
   text-transform: capitalize;
 }
+
+.btn-cinza-azulado {
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-cinza-azulado);
+  max-width: 100px;
+  width: 100%;
+  border: none;
+  border-radius: 1rem;
+  color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.btn-cinza-azulado:hover {
+  background-color: var(--color-cinza);
+}
+
+.recado {
+  font-size: 3rem;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+}
 /* fim padrões */
 
 .menu > ul {
@@ -86,6 +112,162 @@ body {
 }
 
 .main {
+}
+
+.container__logo {
+  display: flex;
+}
+
+.logo {
+  width: 70%;
+  height: 100vh;
+  background: var(--color-cinza-azulado);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rem;
+}
+
+.logo > img {
+  max-width: 450px;
+  width: 100%;
+}
+
+.form__login {
+  width: 30%;
+  background-color: white;
+  padding: 2rem 10rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__login > img {
+  display: none;
+}
+
+.form__login form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: start;
+  max-width: 300px;
+  min-width: 200px;
+  width: 100%;
+}
+
+.form-login__title {
+  font-size: 2.5em;
+}
+
+.form-login__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-login__field > label {
+  text-transform: capitalize;
+}
+
+.form-login__input {
+  padding: 0.5rem;
+  background-color: lightgrey;
+}
+
+.form-login__submit,
+.form-login__cadastro {
+  align-self: center;
+}
+
+.form-login__cadastro:hover {
+  text-decoration: underline;
+}
+/* 
+.form__registration.disable {
+  display: none;
+} */
+
+.form__registration {
+  width: 40%;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+}
+
+.form__registration form {
+  display: grid;
+  grid-template-columns: 250px 250px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    ". title ."
+    "name surname ."
+    "cpf . ."
+    "cep street number"
+    "district city ."
+    "email . ."
+    "password confirmPassword ."
+    ". btns .";
+  gap: 1rem;
+}
+
+.form__registration > h1 {
+  grid-area: title;
+  text-align: center;
+}
+
+.form__registration > form .form-login__field:nth-child(1) {
+  grid-area: name;
+}
+
+.form__registration > form .form-login__field:nth-child(2) {
+  grid-area: surname;
+}
+
+.form__registration > form .form-login__field:nth-child(3) {
+  grid-area: cpf;
+}
+
+.form-login__field:nth-child(3) > label {
+  text-transform: uppercase;
+}
+
+.form__registration > form .form-login__field:nth-child(4) {
+  grid-area: cep;
+}
+
+.form__registration > form .form-login__field:nth-child(5) {
+  grid-area: street;
+}
+
+.form__registration > form .form-login__field:nth-child(6) {
+  grid-area: number;
+}
+
+.form__registration > form .form-login__field:nth-child(7) {
+  grid-area: district;
+}
+
+.form__registration > form .form-login__field:nth-child(8) {
+  grid-area: city;
+}
+
+.form__registration > form .form-login__field:nth-child(9) {
+  grid-area: email;
+}
+
+.form__registration > form .form-login__field:nth-child(10) {
+  grid-area: password;
+}
+
+.form__registration > form .form-login__field:nth-child(11) {
+  grid-area: confirmPassword;
+}
+
+.form-registration__btns {
+  grid-area: btns;
+  display: flex;
 }
 
 .container-carrosel {
@@ -108,20 +290,20 @@ body {
 }
 
 .carrosel__titles {
-    position: absolute;
-    right: 50%;
-    bottom: 15rem;
-    transform: translateX(50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    text-align: center;
+  position: absolute;
+  right: 50%;
+  bottom: 15rem;
+  transform: translateX(50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
 }
 
 .carrosel__title,
 .carrosel__text {
-    color: var(--color-verde-claro);
+  color: var(--color-verde-claro);
 }
 
 .footer {
@@ -129,10 +311,17 @@ body {
   background-color: var(--color-cinza);
 }
 
+@media screen and (max-width: 1024px) {
+  .logo,
+  .form__login {
+    width: 50%;
+  }
+}
+
 @media screen and (max-width: 768px) {
-    html {
-        font-size: 50%;
-    }
+  html {
+    font-size: 50%;
+  }
 
   .menu__toggle {
     align-items: center;
@@ -181,5 +370,24 @@ body {
     gap: 5rem;
     align-items: center;
     font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+
+  .form__login {
+    width: 100%;
+  }
+
+  .form__login > img {
+    display: block;
+    max-width: 100px;
+    min-width: 50px;
+    width: 100%;
+    position: absolute;
+    top: 20%;
   }
 }
