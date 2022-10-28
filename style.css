@@ -306,9 +306,45 @@ body {
   color: var(--color-verde-claro);
 }
 
+.carousel-title{
+  font-family: 'Open Sans';
+  font-size: 35px;
+  line-height: 48px;
+  margin-block-end: 10vh;
+  text-align: center;
+  color: #000000;
+}
+
+.carousel-image{
+  display: block;
+  margin: 0px auto;
+  height: 30vh; 
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.carousel-cell{
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4vh;
+  line-height: 4vh;
+  text-align: center;
+  color: #000000;
+  margin-block-end: 3vh;
+}
+
 .footer {
   height: 20rem;
   background-color: var(--color-cinza);
+}
+
+.footer-cell{
+  color: white;
+  font-weight: 500;
+  font-style: italic;
 }
 
 @media screen and (max-width: 1024px) {
