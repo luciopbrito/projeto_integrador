@@ -24,16 +24,16 @@
                 </div>
                 <nav class="menu">
                     <ul>
-                        <a href="./index.html" target="_parent" class="header-menu__a no-visual__a">
+                        <a href="./index.html" target="_parent" class="menu__a no-visual__a">
                             <li>home</li>
                         </a>
-                        <a href="./sobre.html" target="_parent" class="header-menu__a no-visual__a">
+                        <a href="./sobre.html" target="_parent" class="menu__a no-visual__a">
                             <li>sobre nós</li>
                         </a>
-                        <a href="./cadastro.html" target="_parent" class="header-menu__a no-visual__a">
+                        <a href="./cadastro.html" target="_parent" class="menu__a no-visual__a">
                             <li>cadastra-se</li>
                         </a>
-                        <a href="./login.html" target="_parent" class="header-menu__a no-visual__a">
+                        <a href="./login.html" target="_parent" class="menu__a no-visual__a">
                             <li>login</li>
                         </a>
                     </ul>
@@ -57,36 +57,51 @@
                 <h2 class="carrosel__text txt__cap">soluções intelbras</h2>
             </hgroup>
         </div>
-        <div class="container">
-            <h2 class="carousel-title"> Sobre nós </h2>
-                <img class="carousel-image" src="assets/imgs/Vendas de produtos.png" /> 
-                <div class="carousel-cell"> Vendas de produtos </div>
-                <img class="carousel-image" src="assets/imgs/Manutenção.png" /> 
-                <div class="carousel-cell"> Manutenção </div>
-                <img class="carousel-image" src="assets/imgs/Instalação de equipamento.png" /> 
-                <div class="carousel-cell"> Instalação de equipamento </div>
-        </div>
+        <section class="section__sobre">
+            <h2 class="section-sobre__title txt__cap"> sobre nós </h2>
+            <div class="section__items">
+                <div class="section__item">
+                    <img class="carousel-image" src="assets/imgs/Vendas de produtos.png" />
+                    <h3 class="section__sobre__subtitle txt__cap"> vendas de produtos </h3>
+                </div>
+                <div class="section__item">
+                    <img class="carousel-image" src="assets/imgs/Manutenção.png" />
+                    <h3 class="section__sobre__subtitle txt__cap"> manutenção </h3>
+                </div>
+            </div>
+            <div class="section__item">
+                <img class="carousel-image" src="assets/imgs/Instalação de equipamento.png" />
+                <h3 class="section__sobre__subtitle txt__cap"> instalação de equipamento </h3>
+            </div>
+        </section>
     </main>
     <footer class="footer">
         <div class="container">
-            <img class="footer-image" src="assets/imgs/logo.png" />
-            <div class="footer-cell"> Soluções Intelbras </div>
-            <nav class="footer-menu">
-                <ul class="footer-ul">
-                    <a href="./index.html" class="footer-botão">
+            <div class="footer__info">
+                <img class="footer-info__logo" src="assets/imgs/logo.png" />
+                <h3 class="footer-info__title"> Soluções Intelbras </h3>
+            </div>
+            <nav class="footer__menu">
+                <ul>
+                    <a href="./index.html" class="footer-botão txt__cap no-visual__a menu__a">
                         <li>home</li>
                     </a>
-                    <a href="./sobre.html" class="footer-botão">
+                    <a href="./sobre.html" class="footer-botão txt__cap no-visual__a menu__a">
                         <li>sobre nós</li>
                     </a>
-                    <a href="./cadastro.html" class="footer-botão">
+                    <a href="./cadastro.html" class="footer-botão txt__cap no-visual__a menu__a">
                         <li>cadastra-se</li>
                     </a>
-                    <a href="./login.html" class="footer-botão">
+                    <a href="./login.html" class="footer-botão txt__cap no-visual__a menu__a">
                         <li>login</li>
                     </a>
                 </ul>
             </nav>
+            <div class="footer__icons">
+                <a href="#"><img src="assets/icons/facebook.svg" alt="icone facebook"></a>
+                <a href="#"><img src="assets/icons/instagram.svg" alt="icone instagram"></a>
+                <a href="#"><img src="assets/icons/twitter.svg" alt="icone twitter"></a>
+            </div>
         </div>
     </footer>
     <script src="./js/menu.js"></script>
