@@ -1,15 +1,24 @@
-// let enable = false;
-// const $form_registration = $('.form__registration');
-// const $form_login = $('.form__login');
+"use-strict"
 
-// $(document).on('click', '.form-login__cadastro', '.form-login-active', function () {
-//     if (enable == true) {
-//         $($form_login).css('display', 'none');
-//         $($form_registration).removeClass("disable").addClass("enable");
-//     } else {
-//         $($form_login).css('display', 'flex');
-//         $($form_registration).removeClass("enable").addClass("disable");
-//     }
-//     enable = !enable;
-//     console.log("foi!")
-// });
+let enable = false;
+const $form_registration = $('.form__registration');
+const $form_login = $('.form__login');
+
+function changeForm() {
+    if (enable == true) {
+        $($form_login).css('display', 'flex');
+        $($form_registration).removeClass("enable").addClass("disable");
+    } else {
+        $($form_login).css('display', 'none');
+        $($form_registration).removeClass("disable").addClass("enable");
+    }
+    enable = !enable;
+}
+
+$(document).on('click', ".form-login__cadastro", function () {
+    changeForm();
+});
+
+$(document).on('click', ".form-registration__exit", function () {
+    changeForm();
+});

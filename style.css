@@ -114,7 +114,7 @@ body {
 .main {
 }
 
-.container__logo {
+.container__login {
   display: flex;
 }
 
@@ -125,7 +125,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10rem;
 }
 
 .logo > img {
@@ -183,17 +182,35 @@ body {
 
 .form-login__cadastro:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
-/* 
+
 .form__registration.disable {
   display: none;
-} */
+}
+
+.form__registration.enable {
+  display: flex;
+}
 
 .form__registration {
-  width: 40%;
-  height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100%;
   position: absolute;
-  left: 0;
+  right: 0;
+}
+
+.form-registration__exit {
+  position: absolute;
+  top: 2rem;
+}
+
+.form-registration__exit:hover {
+  cursor: pointer;
 }
 
 .form__registration form {
@@ -201,31 +218,31 @@ body {
   grid-template-columns: 250px 250px 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    ". title ."
+    "title title title"
     "name surname ."
-    "cpf . ."
+    "cpf phone ."
     "cep street number"
     "district city ."
     "email . ."
     "password confirmPassword ."
-    ". btns .";
-  gap: 1rem;
+    "btns btns btns";
+  gap: 2rem;
 }
 
-.form__registration > h1 {
+.form__registration h1 {
   grid-area: title;
   text-align: center;
 }
 
-.form__registration > form .form-login__field:nth-child(1) {
+.form__registration form .form-login__field:nth-child(1) {
   grid-area: name;
 }
 
-.form__registration > form .form-login__field:nth-child(2) {
+.form__registration form .form-login__field:nth-child(2) {
   grid-area: surname;
 }
 
-.form__registration > form .form-login__field:nth-child(3) {
+.form__registration form .form-login__field:nth-child(3) {
   grid-area: cpf;
 }
 
@@ -233,41 +250,52 @@ body {
   text-transform: uppercase;
 }
 
-.form__registration > form .form-login__field:nth-child(4) {
+.form__registration form .form-login__field:nth-child(4) {
+  grid-area: phone;
+}
+
+.form__registration form .form-login__field:nth-child(5) {
   grid-area: cep;
 }
 
-.form__registration > form .form-login__field:nth-child(5) {
+.form-login__field:nth-child(5) > label {
+  text-transform: uppercase;
+}
+
+.form__registration form .form-login__field:nth-child(6) {
   grid-area: street;
 }
 
-.form__registration > form .form-login__field:nth-child(6) {
+.form__registration form .form-login__field:nth-child(7) {
   grid-area: number;
+  width: 50%;
 }
 
-.form__registration > form .form-login__field:nth-child(7) {
+.form__registration form .form-login__field:nth-child(8) {
   grid-area: district;
 }
 
-.form__registration > form .form-login__field:nth-child(8) {
+.form__registration form .form-login__field:nth-child(9) {
   grid-area: city;
 }
 
-.form__registration > form .form-login__field:nth-child(9) {
+.form__registration form .form-login__field:nth-child(10) {
   grid-area: email;
 }
 
-.form__registration > form .form-login__field:nth-child(10) {
+.form__registration form .form-login__field:nth-child(11) {
   grid-area: password;
 }
 
-.form__registration > form .form-login__field:nth-child(11) {
+.form__registration form .form-login__field:nth-child(12) {
   grid-area: confirmPassword;
 }
 
 .form-registration__btns {
   grid-area: btns;
   display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .container-carrosel {
