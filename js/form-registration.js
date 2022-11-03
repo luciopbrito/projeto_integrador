@@ -19,6 +19,6 @@ $(document).on('click', ".form-login__cadastro", function () {
     changeForm();
 });
 
-$(document).on('click', ".form-registration__exit", function () {
+$(document).on('click', ".btn__exit", function () {
     changeForm();
 });
