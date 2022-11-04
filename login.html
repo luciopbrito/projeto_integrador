@@ -24,34 +24,34 @@
             <div class="form__login">
                 <img src="assets/imgs/logo-to-login.png" alt="logo">
                 <h1 class="form-login__title">Login</h1>
-                <form action="login.jsp" method="get">
+                <form action="./jsp/login.jsp" method="post">
                     <div class="form-login__field">
                         <label for="email">email</label>
-                        <input type="text" name="email" class="form-login__input">
+                        <input type="email" name="email" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="password">senha</label>
-                        <input type="text" name="password" class="form-login__input">
+                        <input type="password" name="password" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
                     </div>
                     <input type="submit" value="Login" class="form-login__submit btn-cinza-azulado">
                     <p class="form-login__cadastro">cadastre-se</p>
                 </form>
             </div>
             <div class="form__registration disable">
-
-                <form action="resgitraion.jsp" method="post">
+                <form action="./jsp/registration.jsp" method="post">
                     <h1>Cadastro</h1>
                     <div class="form-login__field">
                         <label for="name">nome</label>
-                        <input type="text" name="name" class="form-login__input">
+                        <input type="text" name="name" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="surname">sobrenome</label>
-                        <input type="text" name="surname" class="form-login__input">
+                        <input type="text" name="surname" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label class="text-uppercase" for="cpf">cpf</label>
-                        <input type="text" name="cpf" class="form-login__input">
+                        <input type="text" name="cpf" class="form-login__input" required maxlength="11">
                     </div>
                     <div class="form-login__field">
                         <label for="phone">telefone</label>
@@ -59,35 +59,37 @@
                     </div>
                     <div class="form-login__field">
                         <label class="text-uppercase" for="cep">cep</label>
-                        <input type="text" name="cep" class="form-login__input">
+                        <input type="text" name="cep" class="form-login__input" required maxlength="8">
                     </div>
                     <div class="form-login__field">
                         <label for="street">rua</label>
-                        <input type="text" name="street" class="form-login__input">
+                        <input type="text" name="street" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="number">número</label>
-                        <input type="text" name="number" class="form-login__input">
+                        <input type="text" name="number" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="district">bairro</label>
-                        <input type="text" name="district" class="form-login__input">
+                        <input type="text" name="district" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="city">cidade</label>
-                        <input type="text" name="city" class="form-login__input">
+                        <input type="text" name="city" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="name">email</label>
-                        <input type="email" name="email" class="form-login__input">
+                        <input type="email" name="email" class="form-login__input" required>
                     </div>
                     <div class="form-login__field">
                         <label for="password">senha</label>
-                        <input type="password" name="password" class="form-login__input">
+                        <input type="password" name="password" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
                     </div>
                     <div class="form-login__field">
                         <label for="confirmPassword">confirma senha</label>
-                        <input type="text" class="form-login__input">
+                        <input type="password" name="confirmPassword" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
                     </div>
                     <div class="form-registration__btns">
                         <input type="submit" value="salvar" class="btn-cinza-azulado">
@@ -104,6 +106,7 @@
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
         crossorigin="anonymous"></script>
     <script src="js/form-registration.js"></script>
+    <script src="js/show-password.js"></script>
 </body>
 
 </html>

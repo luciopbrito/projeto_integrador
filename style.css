@@ -147,7 +147,7 @@ body {
 .form__login {
   width: 30%;
   background-color: white;
-  padding: 2rem 10rem;
+  /* padding: 2rem 10rem; */
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -440,6 +440,18 @@ body {
   width: 100%;
   max-width: 200px;
   min-width: 100px;
+}
+
+.password {
+  padding-right: 25px;
+  cursor: pointer;
+}
+
+.showpassword {
+  background: none;
+  width: max-content;
+  cursor: pointer;
+  justify-self: left;
 }
 
 @media screen and (max-width: 1800px) {
