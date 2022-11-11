@@ -51,9 +51,7 @@
     stm.setString(6, endereco);
 
     stm.execute() ;
-    stm.close() ;
+    stm.close();
 
-    out.print("Dados gravados com sucesso!!!");
-    out.print("<br><br>");
-    out.print("<a href='../login.html'>Voltar</a>");
+    response.sendRedirect("../success-register.html");
 %>

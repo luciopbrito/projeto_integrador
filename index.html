@@ -12,111 +12,102 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title>ACB - Soluções Intelbras</title>
+    <title>ACB - Login</title>
 </head>
 
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header__img">
-                <a href="./index.html" target="_parent">
-                    <img src="./assets/imgs/logo.png" alt="logo da empresa Aires Company Brasil">
-                </a>
-            </div>
-            <div class="menu__mobile">
-                <div class="menu__toggle">
-                    <img src="./assets/icons/list.svg" alt="icone para menu">
-                </div>
-                <nav class="menu">
-                    <ul>
-                        <a href="./index.html" target="_parent" class="menu__a no-visual__a">
-                            <li>home</li>
-                        </a>
-                        <a href="./sobre.html" target="_parent" class="menu__a no-visual__a">
-                            <li>sobre nós</li>
-                        </a>
-                        <a href="./cadastro.html" target="_parent" class="menu__a no-visual__a">
-                            <li>cadastra-se</li>
-                        </a>
-                        <a href="./login.html" target="_parent" class="menu__a no-visual__a">
-                            <li>login</li>
-                        </a>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
     <main class="main">
-        <div class="container-carrosel">
-            <div class="carrosel__imgs">
-                <img src="./assets/imgs/carrosel_img1.jpg" alt="imagem de um modem visto de atrás">
-                <img src="./assets/imgs/carrosel_img2.jpg"
-                    alt="imagem de duas câmeras em fixadas sobre uma parede cinza">
-                <img src="./assets/imgs/carrosel_img3.jpg"
-                    alt="imagem de um servidor com cabos conectados visto de atrás">
-                <img src="./assets/imgs/carrosel_img4.jpg"
-                    alt="imagem de um câmera rodonda com duas antenas fixada entre duas paredes">
+        <div class="container-forms">
+            <div class="logo">
+                <img src="assets/imgs/logo-to-login.png" alt="logo">
             </div>
-            <hgroup class="carrosel__titles">
-                <h1 class="carrosel__title text-capitalize">aires company brasil</h1>
-                <h2 class="carrosel__text text-capitalize">soluções intelbras</h2>
-            </hgroup>
+            <div class="form__login">
+                <img src="assets/imgs/logo-to-login.png" alt="logo">
+                <h1 class="form-login__title">Login</h1>
+                <form action="./jsp/login.jsp" method="post">
+                    <div class="form-login__field">
+                        <label for="email">email</label>
+                        <input type="email" name="email" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="password">senha</label>
+                        <input type="password" name="password" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
+                    </div>
+                    <input type="submit" value="login" class="text-capitalize form-login__submit btn btn-lg btn-cinza-azulado">
+                    <p class="form-login__cadastro">cadastre-se</p>
+                </form>
+            </div>
+            <div class="form__registration disable">
+                <form action="./jsp/registration.jsp" method="post">
+                    <h1>Cadastro</h1>
+                    <div class="form-login__field">
+                        <label for="name">nome</label>
+                        <input type="text" name="name" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="surname">sobrenome</label>
+                        <input type="text" name="surname" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label class="text-uppercase" for="cpf">cpf</label>
+                        <input type="text" name="cpf" class="form-login__input" required maxlength="11">
+                    </div>
+                    <div class="form-login__field">
+                        <label for="phone">telefone</label>
+                        <input type="text" name="phone" class="form-login__input" maxlength="14">
+                    </div>
+                    <div class="form-login__field">
+                        <label class="text-uppercase" for="cep">cep</label>
+                        <input type="text" name="cep" class="form-login__input" required maxlength="8">
+                    </div>
+                    <div class="form-login__field">
+                        <label for="street">rua</label>
+                        <input type="text" name="street" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="number">número</label>
+                        <input type="text" name="number" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="district">bairro</label>
+                        <input type="text" name="district" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="city">cidade</label>
+                        <input type="text" name="city" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="name">email</label>
+                        <input type="email" name="email" class="form-login__input" required>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="password">senha</label>
+                        <input type="password" name="password" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
+                    </div>
+                    <div class="form-login__field">
+                        <label for="confirmPassword">confirma senha</label>
+                        <input type="password" name="confirmPassword" class="form-login__input password" required>
+                        <button type="button" class="m-0 showpassword">mostra senha</button>
+                    </div>
+                    <div class="form-registration__btns">
+                        <input type="submit" value="salvar" class="text-capitalize btn btn-lg btn-cinza-azulado">
+                        <input type="button" value="cancelar" class="text-capitalize btn__exit btn btn-lg btn-cinza-azulado">
+                    </div>
+                </form>
+            </div>
         </div>
-        <section class="section__sobre">
-            <h2 class="section-sobre__title text-capitalize fw-bold"> sobre nós </h2>
-            <div class="section__items">
-                <div class="section__item">
-                    <img class="carousel-image" src="assets/imgs/Vendas de produtos.png" />
-                    <h3 class="section__sobre__subtitle text-capitalize fw-bold"> vendas de produtos </h3>
-                </div>
-                <div class="section__item">
-                    <img class="carousel-image" src="assets/imgs/Manutenção.png" />
-                    <h3 class="section__sobre__subtitle text-capitalize fw-bold"> manutenção </h3>
-                </div>
-            </div>
-            <div class="section__item">
-                <img class="carousel-image" src="assets/imgs/Instalação de equipamento.png" />
-                <h3 class="section__sobre__subtitle text-capitalize fw-bold"> instalação de equipamento </h3>
-            </div>
-        </section>
     </main>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__info">
-                <img class="footer-info__logo" src="assets/imgs/logo.png" />
-                <h3 class="footer-info__title"> Soluções Intelbras </h3>
-            </div>
-            <nav class="footer__menu">
-                <ul>
-                    <a href="./index.html" class="footer-botão text-capitalize no-visual__a menu__a">
-                        <li>home</li>
-                    </a>
-                    <a href="./sobre.html" class="footer-botão text-capitalize no-visual__a menu__a">
-                        <li>sobre nós</li>
-                    </a>
-                    <a href="./cadastro.html" class="footer-botão text-capitalize no-visual__a menu__a">
-                        <li>cadastra-se</li>
-                    </a>
-                    <a href="./login.html" class="footer-botão text-capitalize no-visual__a menu__a">
-                        <li>login</li>
-                    </a>
-                </ul>
-            </nav>
-            <div class="footer__icons">
-                <a href="#"><img src="assets/icons/facebook.svg" alt="icone facebook"></a>
-                <a href="#"><img src="assets/icons/instagram.svg" alt="icone instagram"></a>
-                <a href="#"><img src="assets/icons/twitter.svg" alt="icone twitter"></a>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
         crossorigin="anonymous"></script>
-    <script src="./js/menu.js"></script>
-    <script src="./js/carrosel.js"></script>
+    <script src="js/form-registration.js"></script>
+    <script src="js/show-password.js"></script>
+    <script src="js/only-numbers.js"></script>
 </body>
 
 </html>
