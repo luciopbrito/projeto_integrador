@@ -124,6 +124,31 @@ body {
   grid-area: main;
 }
 
+.titulo-PS{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.imagem-PS{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 30px 30px;
+}
+.imagem-PS div{
+  text-align: center;
+}
+
+.imagem-produto{
+  max-width: 250px;
+  min-width: 150px;
+  width: 100%;
+}
+
+.imagem-produto img {
+  width: 100%;
+}
+
 .container-forms {
   display: flex;
   height: 100%;
