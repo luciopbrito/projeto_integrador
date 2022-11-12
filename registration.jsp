@@ -1,5 +1,4 @@
-<%@page language="java" import="java.sql.*" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
+<%@page language="java" import="java.util.*" import="java.sql.*" contentType="text/html" pageEncoding="UTF-8"%>
 <%
     // cria as variaveis e armazena as informações digitadas pelo usuario
     String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
@@ -40,18 +39,42 @@
     //Cria a variavel sql com o comando de Inserir
     // String sql = "INSERT INTO alunos (nome,idade,email) values(?,?,?)" ;
 
-    String sql = "INSERT INTO clientes (name, phone, email, password, cpf, endereco) values(?,?,?,?,?,?)";
+    // teste
+    String sql = "SELECT email FROM clientes WHERE email = '" + email + "'";
 
     PreparedStatement stm = conexao.prepareStatement(sql);
-    stm.setString(1, full_name);
-    stm.setString(2, phone);
-    stm.setString(3, email);
-    stm.setString(4, password);
-    stm.setString(5, cpf);
-    stm.setString(6, endereco);
+    ResultSet dados = stm.executeQuery() ;
+    String test_email = "";
+    Boolean do_register = false;
+    while (dados.next())
+    {
+        test_email = dados.getString("email");
+        if (test_email != "")
+        {
+            // String message = "<h1>Este email já é utilizado no sistema</h1>";
+            // String button = "<button onclick='history_back()'>Voltar ao Cadastro</button>";
+            // String script = "<script src='./js/backHistory.js'></script>";
+            // out.print(message + button + script);
+            out.print("exite este email");
+            do_register = true;
+        }
+    }
 
-    stm.execute() ;
-    stm.close();
+    if (do_register == false)
+    {
+        //inserindo no banco
+        sql = "INSERT INTO clientes (name, phone, email, password, cpf, endereco) values(?,?,?,?,?,?)";
 
-    response.sendRedirect("../success-register.html");
+        stm = conexao.prepareStatement(sql);
+        stm.setString(1, full_name);
+        stm.setString(2, phone);
+        stm.setString(3, email);
+        stm.setString(4, password);
+        stm.setString(5, cpf);
+        stm.setString(6, endereco);
+
+        stm.execute() ;
+        stm.close();
+        response.sendRedirect("./success-register.html");
+    } 
 %>
