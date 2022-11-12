@@ -3,14 +3,13 @@
 let show = false;
 
 $(document).on('click', ".showpassword", function () {
+    show = !show;
     if (show == true) {
         $(".password").attr("type", "text")
         $('.showpassword').css('font-weight', 'bold');
-        show = !show;
     } else {
         $(".password").attr("type", "password");
         $('.showpassword').css('font-weight', 'normal');
-        show = !show;
     }
 });
 

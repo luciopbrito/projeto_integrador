@@ -64,7 +64,7 @@ body {
 }
 
 .menu__mobile {
-  max-width: 40rem;
+  max-width: 50rem;
   width: 100%;
 }
 
@@ -87,18 +87,17 @@ body {
 }
 
 .btn-cinza-azulado {
-  padding: 1rem 3rem;
+  /* padding: 1rem 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
+   border: none;
+  border-radius: 1rem;*/
   background-color: var(--color-cinza-azulado);
+  font-weight: 500;
   max-width: 100px;
   width: 100%;
-  border: none;
-  border-radius: 1rem;
   color: white;
-  font-weight: 500;
-  text-transform: capitalize;
 }
 
 .btn-cinza-azulado:hover {

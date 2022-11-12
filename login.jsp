@@ -1,13 +1,10 @@
-<%@page language="java" import="java.sql.*" %>
+<%@page language="java" import="java.sql.*" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="java.util.*"%>
 
-<%
+
+<% 
     // cria as variaveis e armazena as informações digitadas pelo usuario
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-
-    // String vnome  = request.getParameter("txtNome");
-    // int    vidade = Integer.parseInt( request.getParameter("txtIdade") );
-    // String vemail = request.getParameter("txtEmail");
 
     // variaveis para o banco de dados
     String banco    = "projetointegrador";
@@ -27,23 +24,38 @@
     conexao = DriverManager.getConnection(endereco, usuario, senha) ;
 
     //Cria a variavel sql com o comando de Inserir
-    // String sql = "INSERT INTO alunos (nome,idade,email) values(?,?,?)" ;
+    String sql = "SELECT email, password, id_client FROM clientes WHERE email = '" + email + "' AND password = '" + password + "'";
 
-    String sql = "SELECT email, password FROM clientes WHERE email = '" + email + "' AND password = '" + password + "'";
-    
     // String sql = "SELECT * FROM clientes"
 
     PreparedStatement stm = conexao.prepareStatement(sql);
-    
-    // stm.setString(1, vnome);
-    // stm.setInt(2, vidade);
-    // stm.setString(3, vemail);
 
     ResultSet dados = stm.executeQuery() ;
-    // stm.close() ;
+    while (dados.next())
+    {
+        String id = dados.getString("id_client");
+
+        response.sendRedirect("./index.jsp?id=" + id);
+    }    
+
+    stm.close() ;   
     
-    while ( dados.next() ) {
-        out.print(dados.getString("email"));
-        out.print(dados.getString("password"));
-    }
+    // if (dados == null){
+    //     out.print(dados);
+    // }
+
+  
+    //     User user = new User();
+    //     user.setEmail("teste@gmail.com");
+
+    // out.print(user.getEmail());
+
+    // while (dados.next()) {
+    //     response.sendRedirect("../index.jsp?id=id");
+    // }
+    // while ( dados.next() ) {
+    //     out.print(dados.getString("email"));
+    //     out.print(dados.getString("password"));
+    // }
+
 %>
