@@ -33,14 +33,16 @@
     String link_cadastro = "<a href='./login.html?register=true' target='_parent' class='menu__a no-visual__a'><li>cadastra-se</li></a>";
     String link_login = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>login</li></a>";
 
-    String link_produtos = "<a href='./produtos.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
+    String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
+    String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
     String link_orcamentos = "<a href='./orcamentos.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>orçamentos</li></a>";
     String link_perfil = "<a href='./perfil.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>perfil</li></a>";
     String sair = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>sair</li></a>";
 
-    String logoff = link_cadastro + link_login;
-    String login = link_produtos + link_orcamentos + link_perfil + sair;
-    String loginFooter = link_produtos + link_orcamentos + link_perfil;
+    String logoff = link_produtos + link_cadastro + link_login;
+    String login = link_produtosId + link_orcamentos + link_perfil + sair;
+    // String logoffFooter = link_orcamentos + link_perfil;
+    // String loginFooter = link_produtos + link_orcamentos + link_perfil;
 %>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -63,7 +65,7 @@
         <header class="header">
             <div class="container">
                 <div class="header__img">
-                    <a href="./index.html" target="_parent">
+                    <a href="./index.jsp" target="_parent">
                         <img src="./assets/imgs/logo.png" alt="logo da empresa Aires Company Brasil">
                     </a>
                 </div>
@@ -141,7 +143,7 @@
                         </a>
                         <a href="./sobre.html" class="footer-botão text-capitalize no-visual__a menu__a">
                             <li>sobre nós</li>
-                        </a>
+                        </a>        
                         <%                            
                             if(id == null)
                             {
@@ -149,7 +151,7 @@
                             }
                             else
                             {
-                                out.println(loginFooter);
+                                out.println(login);
                             }
                         %>
                     </ul>

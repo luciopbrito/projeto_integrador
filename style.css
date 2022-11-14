@@ -130,11 +130,13 @@ body {
 }
 
 .imagem-PS{
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3,minmax(150px,250px));
+  gap: 20px;
   justify-content: space-evenly;
-  margin: 30px 30px;
+  margin: 70px 0;
 }
+
 .imagem-PS div{
   text-align: center;
 }
@@ -143,6 +145,7 @@ body {
   max-width: 250px;
   min-width: 150px;
   width: 100%;
+  /* margin: 30px; */
 }
 
 .imagem-produto img {
@@ -516,6 +519,11 @@ body {
     width: 100%;
   }
 
+  .imagem-PS{
+    grid-template-columns: repeat(2,minmax(150px,250px));
+  }
+  
+
   .form__login > img {
     display: block;
     max-width: 100px;
@@ -556,6 +564,10 @@ body {
 @media screen and (max-width: 768px) {
   html {
     font-size: 50%;
+  }
+
+  .imagem-PS{
+    grid-template-columns: repeat(1,minmax(150px,250px));
   }
 
   .menu__toggle {
