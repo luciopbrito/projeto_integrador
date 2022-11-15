@@ -29,6 +29,7 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
   grid-template-areas:
     "header"
     "main"
@@ -191,9 +192,16 @@ body {
   justify-content: center;
 }
 
-.form__login > img {
+.form__login div > img,
+.form__registration div > img {
   display: none;
 }
+
+.form__registration .form_logo{
+  display: flex;
+  justify-content: center;
+  grid-area: logo;
+} 
 
 .form__login form {
   display: flex;
@@ -290,52 +298,52 @@ body {
   font-weight: bold;
 }
 
-.form__registration form .form-login__field:nth-child(2) {
+.form__registration form .form-login__field:nth-child(3) {
   grid-area: name;
 }
 
-.form__registration form .form-login__field:nth-child(3) {
+.form__registration form .form-login__field:nth-child(4) {
   grid-area: surname;
 }
 
-.form__registration form .form-login__field:nth-child(4) {
+.form__registration form .form-login__field:nth-child(5) {
   grid-area: cpf;
 }
 
-.form__registration form .form-login__field:nth-child(5) {
+.form__registration form .form-login__field:nth-child(6) {
   grid-area: phone;
 }
 
-.form__registration form .form-login__field:nth-child(6) {
+.form__registration form .form-login__field:nth-child(7) {
   grid-area: cep;
 }
 
-.form__registration form .form-login__field:nth-child(7) {
+.form__registration form .form-login__field:nth-child(8) {
   grid-area: street;
 }
 
-.form__registration form .form-login__field:nth-child(8) {
+.form__registration form .form-login__field:nth-child(9) {
   grid-area: number;
   /* width: 50%; */
 }
 
-.form__registration form .form-login__field:nth-child(9) {
+.form__registration form .form-login__field:nth-child(10) {
   grid-area: district;
 }
 
-.form__registration form .form-login__field:nth-child(10) {
+.form__registration form .form-login__field:nth-child(11) {
   grid-area: city;
 }
 
-.form__registration form .form-login__field:nth-child(11) {
+.form__registration form .form-login__field:nth-child(12) {
   grid-area: email;
 }
 
-.form__registration form .form-login__field:nth-child(12) {
+.form__registration form .form-login__field:nth-child(13) {
   grid-area: password;
 }
 
-.form__registration form .form-login__field:nth-child(13) {
+.form__registration form .form-login__field:nth-child(14) {
   grid-area: confirmPassword;
 }
 
@@ -500,6 +508,7 @@ body {
   .form__registration form {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "logo logo"
       "title title"
       "name surname"
       "cpf phone"
@@ -533,13 +542,13 @@ body {
   }
   
 
-  .form__login > img {
+  .form__login div > img,
+  .form__registration div > img {
     display: block;
     max-width: 100px;
     min-width: 50px;
     width: 100%;
-    position: absolute;
-    top: 20%;
+    margin: 0 0 20px 0;
   }
 
   .form__registration.enable {
@@ -637,6 +646,7 @@ body {
   .form__registration form {
     grid-template-columns: minmax(200px, 500px);
     grid-template-areas:
+      "logo"
       "title"
       "name"
       "surname"
