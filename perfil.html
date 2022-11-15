@@ -47,15 +47,48 @@
         </div>
     </header>
     <main class="main">
-        <div class="container-perfil">
-            <h1>criando</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo omnis tempora rerum itaque rem dolor molestiae, at facere cum repudiandae corrupti esse aperiam autem laudantium asperiores iusto ad enim ipsum.</p>
+        <div class="container-perfil container">
+            <h1 class="dadostitulo">Dados do Cadastro</h1>
+            <div class="container container_dados">
+                <div>
+                    <div class="container-dados-pessoais">
+                        <h1 class="dadostitulo">Dados Pessoais</h1>
+                        <div class="container-fluid d-flex">
+                            <div class="d-flex flex-column gap-4 dados-filho">
+                                <p>nome: <br>nome do cliente</p>
+                                <p>Email:<br>nomedoclinte@gmail.com</p>
+                            </div>
+                            <div class="d-flex flex-column gap-4 dados-filho">
+                                <p>Telefone:<br>12 34567-899</p>
+                                <p>Senha:<br>********</p>
+                            </div>
+                        </div>
+                        <button class="btn-cinza-azulado">editar</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="container-dados-endereco">                    
+                        <h1 class="dadostitulo">Endereço</h1>
+                        <div class="d-flex">
+                            <div class="d-flex flex-column gap-4 dados-filho">
+                                <p>CEP <br>12340-505</p>
+                                <p>Bairro<br> Vila Endres</p>
+                            </div>
+                            <div class="d-flex flex-column gap-4 dados-filho">
+                                <p>Rua <br>Italiana</p>
+                                <p>Nº<br> 123</p>
+                            </div>
+                        </div>
+                        <button class="btn-cinza-azulado">editar</button>            
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <footer class="footer">
+    <footer class="footer">    
         <div class="container">
             <div class="footer__info">
-                <img class="footer-info__logo" src="assets/imgs/logo.png" />
+                <img src="assets/imgs/logo.png" />
                 <h3 class="footer-info__title"> Soluções Intelbras </h3>
             </div>
             <nav class="footer__menu">
@@ -87,8 +120,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
         crossorigin="anonymous"></script>
-    <script src="js/form-registration.js"></script>
-    <script src="js/show-password.js"></script>
 </body>
 
 </html>
