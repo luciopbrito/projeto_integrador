@@ -125,6 +125,33 @@ body {
   grid-area: main;
 }
 
+.container-perfil {
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dadostitulo {
+  font-weight: bold; 
+}
+
+.dados-filho {
+  width: 50%;
+}
+
+.container_dados, .container-dados-endereco {
+  background-color: #E4F0D0;
+  padding: 50px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.container-dados-pessoais {
+  padding: 0 50px; 
+}
+
 .container-orcamentos {
   background-color: #d9d9d9;
   min-height: 500px;
@@ -462,9 +489,6 @@ body {
   flex-direction: column;
   /* align-items: center; */
   align-items: flex-start;
-}
-
-.footer-info__logo {
 }
 
 .footer-info__title {
