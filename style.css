@@ -29,6 +29,7 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
   grid-template-areas:
     "header"
     "main"
@@ -64,7 +65,7 @@ body {
 }
 
 .menu__mobile {
-  max-width: 40rem;
+  max-width: 60rem;
   width: 100%;
 }
 
@@ -87,18 +88,17 @@ body {
 }
 
 .btn-cinza-azulado {
-  padding: 1rem 3rem;
+  /* padding: 1rem 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
+   border: none;
+  border-radius: 1rem;*/
   background-color: var(--color-cinza-azulado);
-  max-width: 100px;
-  width: 100%;
-  border: none;
-  border-radius: 1rem;
-  color: white;
   font-weight: 500;
-  text-transform: capitalize;
+  max-width: 150px;
+  width: 100%;
+  color: white;
 }
 
 .btn-cinza-azulado:hover {
@@ -132,6 +132,14 @@ body {
   gap: 20px;
 }
 
+.dadostitulo {
+  font-weight: bold; 
+}
+
+.dados-filho {
+  width: 50%;
+}
+
 .container_dados, .container-dados-endereco {
   background-color: #E4F0D0;
   padding: 50px;
@@ -144,12 +152,42 @@ body {
   padding: 0 50px; 
 }
 
-.dadostitulo {
-  font-weight: bold; 
+.container-orcamentos {
+  background-color: #d9d9d9;
+  min-height: 500px;
 }
 
-.dados-filho {
-  width: 50%;
+.title-orcamento {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.titulo-PS{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.imagem-PS{
+  display: grid;
+  grid-template-columns: repeat(3,minmax(150px,250px));
+  gap: 20px;
+  justify-content: space-evenly;
+  margin: 70px 0;
+}
+
+.imagem-PS div{
+  text-align: center;
+}
+
+.imagem-produto{
+  max-width: 250px;
+  min-width: 150px;
+  width: 100%;
+  /* margin: 30px; */
+}
+
+.imagem-produto img {
+  width: 100%;
 }
 
 .container-forms {
@@ -182,9 +220,16 @@ body {
   justify-content: center;
 }
 
-.form__login > img {
+.form__login div > img,
+.form__registration div > img {
   display: none;
 }
+
+.form__registration .form_logo{
+  display: flex;
+  justify-content: center;
+  grid-area: logo;
+} 
 
 .form__login form {
   display: flex;
@@ -261,19 +306,20 @@ body {
 
 .form__registration form {
   display: grid;
-  grid-template-columns: 250px 250px 250px;
+  grid-template-columns: 250px 250px;
   grid-template-rows: auto;
   grid-template-areas:
-    "title title title"
-    "name surname ."
-    "cpf phone ."
-    "cep street number"
-    "district city ."
-    "email . ."
-    "password confirmPassword ."
-    "btns btns btns";
+    "title title"
+    "name surname"
+    "cpf phone"
+    "cep street"
+    "district number"
+    "city email"
+    "password confirmPassword"
+    "btns btns";
   gap: 2rem;
 }
+
 
 .form__registration h1 {
   grid-area: title;
@@ -281,52 +327,52 @@ body {
   font-weight: bold;
 }
 
-.form__registration form .form-login__field:nth-child(2) {
+.form__registration form .form-login__field:nth-child(3) {
   grid-area: name;
 }
 
-.form__registration form .form-login__field:nth-child(3) {
+.form__registration form .form-login__field:nth-child(4) {
   grid-area: surname;
 }
 
-.form__registration form .form-login__field:nth-child(4) {
+.form__registration form .form-login__field:nth-child(5) {
   grid-area: cpf;
 }
 
-.form__registration form .form-login__field:nth-child(5) {
+.form__registration form .form-login__field:nth-child(6) {
   grid-area: phone;
 }
 
-.form__registration form .form-login__field:nth-child(6) {
+.form__registration form .form-login__field:nth-child(7) {
   grid-area: cep;
 }
 
-.form__registration form .form-login__field:nth-child(7) {
+.form__registration form .form-login__field:nth-child(8) {
   grid-area: street;
 }
 
-.form__registration form .form-login__field:nth-child(8) {
+.form__registration form .form-login__field:nth-child(9) {
   grid-area: number;
   /* width: 50%; */
 }
 
-.form__registration form .form-login__field:nth-child(9) {
+.form__registration form .form-login__field:nth-child(10) {
   grid-area: district;
 }
 
-.form__registration form .form-login__field:nth-child(10) {
+.form__registration form .form-login__field:nth-child(11) {
   grid-area: city;
 }
 
-.form__registration form .form-login__field:nth-child(11) {
+.form__registration form .form-login__field:nth-child(12) {
   grid-area: email;
 }
 
-.form__registration form .form-login__field:nth-child(12) {
+.form__registration form .form-login__field:nth-child(13) {
   grid-area: password;
 }
 
-.form__registration form .form-login__field:nth-child(13) {
+.form__registration form .form-login__field:nth-child(14) {
   grid-area: confirmPassword;
 }
 
@@ -406,11 +452,10 @@ body {
 .section__item {
   max-width: 400px;
   min-width: 200px;
-  padding: 5rem;
+  padding: 3rem;
   width: 100%;
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
 .section__item:hover {
   transform: scale(1.2);
 }
@@ -488,23 +533,17 @@ body {
   .form__registration form {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "logo logo"
       "title title"
       "name surname"
       "cpf phone"
       "cep street"
-      "number district"
-      "email city"
+      "district number"
+      "city email"
       "password confirmPassword"
       "btns btns";
     width: 500px;
   }
-  /* .form__registration.enable {
-    width: 100%;
-  }
-
-  .form__registration.enable div {
-    width: 100%;
-  } */
 }
 
 @media screen and (max-width: 1180px) {
@@ -516,13 +555,18 @@ body {
     width: 100%;
   }
 
-  .form__login > img {
+  .imagem-PS{
+    grid-template-columns: repeat(2,minmax(150px,250px));
+  }
+  
+
+  .form__login div > img,
+  .form__registration div > img {
     display: block;
     max-width: 100px;
     min-width: 50px;
     width: 100%;
-    position: absolute;
-    top: 20%;
+    margin: 0 0 20px 0;
   }
 
   .form__registration.enable {
@@ -556,6 +600,10 @@ body {
 @media screen and (max-width: 768px) {
   html {
     font-size: 50%;
+  }
+
+  .imagem-PS{
+    grid-template-columns: repeat(1,minmax(150px,250px));
   }
 
   .menu__toggle {
@@ -616,6 +664,7 @@ body {
   .form__registration form {
     grid-template-columns: minmax(200px, 500px);
     grid-template-areas:
+      "logo"
       "title"
       "name"
       "surname"
@@ -625,8 +674,8 @@ body {
       "street"
       "number"
       "district"
-      "email"
       "city"
+      "email"
       "password"
       "confirmPassword"
       "btns";
