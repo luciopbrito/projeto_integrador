@@ -29,6 +29,7 @@ body {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
   grid-template-areas:
     "header"
     "main"
@@ -64,7 +65,7 @@ body {
 }
 
 .menu__mobile {
-  max-width: 50rem;
+  max-width: 60rem;
   width: 100%;
 }
 
@@ -95,7 +96,7 @@ body {
   border-radius: 1rem;*/
   background-color: var(--color-cinza-azulado);
   font-weight: 500;
-  max-width: 100px;
+  max-width: 150px;
   width: 100%;
   color: white;
 }
@@ -122,6 +123,43 @@ body {
 .main {
   height: 100%;
   grid-area: main;
+}
+
+.container-perfil {
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dadostitulo {
+  font-weight: bold; 
+}
+
+.dados-filho {
+  width: 50%;
+}
+
+.container_dados, .container-dados-endereco {
+  background-color: #E4F0D0;
+  padding: 50px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.container-dados-pessoais {
+  padding: 0 50px; 
+}
+
+.container-orcamentos {
+  background-color: #d9d9d9;
+  min-height: 500px;
+}
+
+.title-orcamento {
+  font-size: 3rem;
+  text-align: center;
 }
 
 .titulo-PS{
@@ -182,9 +220,16 @@ body {
   justify-content: center;
 }
 
-.form__login > img {
+.form__login div > img,
+.form__registration div > img {
   display: none;
 }
+
+.form__registration .form_logo{
+  display: flex;
+  justify-content: center;
+  grid-area: logo;
+} 
 
 .form__login form {
   display: flex;
@@ -261,19 +306,20 @@ body {
 
 .form__registration form {
   display: grid;
-  grid-template-columns: 250px 250px 250px;
+  grid-template-columns: 250px 250px;
   grid-template-rows: auto;
   grid-template-areas:
-    "title title title"
-    "name surname ."
-    "cpf phone ."
-    "cep street number"
-    "district city ."
-    "email . ."
-    "password confirmPassword ."
-    "btns btns btns";
+    "title title"
+    "name surname"
+    "cpf phone"
+    "cep street"
+    "district number"
+    "city email"
+    "password confirmPassword"
+    "btns btns";
   gap: 2rem;
 }
+
 
 .form__registration h1 {
   grid-area: title;
@@ -281,52 +327,52 @@ body {
   font-weight: bold;
 }
 
-.form__registration form .form-login__field:nth-child(2) {
+.form__registration form .form-login__field:nth-child(3) {
   grid-area: name;
 }
 
-.form__registration form .form-login__field:nth-child(3) {
+.form__registration form .form-login__field:nth-child(4) {
   grid-area: surname;
 }
 
-.form__registration form .form-login__field:nth-child(4) {
+.form__registration form .form-login__field:nth-child(5) {
   grid-area: cpf;
 }
 
-.form__registration form .form-login__field:nth-child(5) {
+.form__registration form .form-login__field:nth-child(6) {
   grid-area: phone;
 }
 
-.form__registration form .form-login__field:nth-child(6) {
+.form__registration form .form-login__field:nth-child(7) {
   grid-area: cep;
 }
 
-.form__registration form .form-login__field:nth-child(7) {
+.form__registration form .form-login__field:nth-child(8) {
   grid-area: street;
 }
 
-.form__registration form .form-login__field:nth-child(8) {
+.form__registration form .form-login__field:nth-child(9) {
   grid-area: number;
   /* width: 50%; */
 }
 
-.form__registration form .form-login__field:nth-child(9) {
+.form__registration form .form-login__field:nth-child(10) {
   grid-area: district;
 }
 
-.form__registration form .form-login__field:nth-child(10) {
+.form__registration form .form-login__field:nth-child(11) {
   grid-area: city;
 }
 
-.form__registration form .form-login__field:nth-child(11) {
+.form__registration form .form-login__field:nth-child(12) {
   grid-area: email;
 }
 
-.form__registration form .form-login__field:nth-child(12) {
+.form__registration form .form-login__field:nth-child(13) {
   grid-area: password;
 }
 
-.form__registration form .form-login__field:nth-child(13) {
+.form__registration form .form-login__field:nth-child(14) {
   grid-area: confirmPassword;
 }
 
@@ -406,11 +452,10 @@ body {
 .section__item {
   max-width: 400px;
   min-width: 200px;
-  padding: 5rem;
+  padding: 3rem;
   width: 100%;
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
 .section__item:hover {
   transform: scale(1.2);
 }
@@ -444,9 +489,6 @@ body {
   flex-direction: column;
   /* align-items: center; */
   align-items: flex-start;
-}
-
-.footer-info__logo {
 }
 
 .footer-info__title {
@@ -491,23 +533,17 @@ body {
   .form__registration form {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "logo logo"
       "title title"
       "name surname"
       "cpf phone"
       "cep street"
-      "number district"
-      "email city"
+      "district number"
+      "city email"
       "password confirmPassword"
       "btns btns";
     width: 500px;
   }
-  /* .form__registration.enable {
-    width: 100%;
-  }
-
-  .form__registration.enable div {
-    width: 100%;
-  } */
 }
 
 @media screen and (max-width: 1180px) {
@@ -524,13 +560,13 @@ body {
   }
   
 
-  .form__login > img {
+  .form__login div > img,
+  .form__registration div > img {
     display: block;
     max-width: 100px;
     min-width: 50px;
     width: 100%;
-    position: absolute;
-    top: 20%;
+    margin: 0 0 20px 0;
   }
 
   .form__registration.enable {
@@ -628,6 +664,7 @@ body {
   .form__registration form {
     grid-template-columns: minmax(200px, 500px);
     grid-template-areas:
+      "logo"
       "title"
       "name"
       "surname"
@@ -637,8 +674,8 @@ body {
       "street"
       "number"
       "district"
-      "email"
       "city"
+      "email"
       "password"
       "confirmPassword"
       "btns";

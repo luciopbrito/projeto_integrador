@@ -1,4 +1,4 @@
-<%@page language="java" import="java.util.*" import="java.sql.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" import="java.sql.*,java.util.*, java.text.*" contentType="text/html" pageEncoding="UTF-8" %>
 <%
     // cria as variaveis e armazena as informações digitadas pelo usuario
     String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
@@ -44,18 +44,23 @@
 
     PreparedStatement stm = conexao.prepareStatement(sql);
     ResultSet dados = stm.executeQuery() ;
+
     String test_email = "";
+    String message = "";
+    String button = "";
+    String title = "";
     Boolean do_register = false;
+
     while (dados.next())
     {
         test_email = dados.getString("email");
         if (test_email != "")
         {
-            // String message = "<h1>Este email já é utilizado no sistema</h1>";
-            // String button = "<button onclick='history_back()'>Voltar ao Cadastro</button>";
+            title = "Cadastro inválido";
+            message = "Este email já é utilizado no sistema";
+            button = "<button class='btn btn-cinza-azulado btn-lg' onclick='window.history.back()'>Voltar ao Cadastro</button>";
             // String script = "<script src='./js/backHistory.js'></script>";
             // out.print(message + button + script);
-            out.print("exite este email");
             do_register = true;
         }
     }
@@ -75,6 +80,40 @@
 
         stm.execute() ;
         stm.close();
-        response.sendRedirect("./success-register.html");
+        title = "Dados Salvos com Sucesso";
+        message = "Cadastro realizado com sucesso";
+        button = "<a class='btn btn-lg btn-cinza-azulado' href='./login.html'>Faça o login</a>";
     } 
 %>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title><%out.print(title);%></title>
+</head>
+
+<body>
+    <main class="main">
+        <div class="d-flex flex-column align-items-center gap-3">
+            <h1><%out.print(message);%></h1>
+            <%out.print(button);%>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
