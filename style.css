@@ -279,19 +279,20 @@ body {
 
 .form__registration form {
   display: grid;
-  grid-template-columns: 250px 250px 250px;
+  grid-template-columns: 250px 250px;
   grid-template-rows: auto;
   grid-template-areas:
-    "title title title"
-    "name surname ."
-    "cpf phone ."
-    "cep street number"
-    "district city ."
-    "email . ."
-    "password confirmPassword ."
-    "btns btns btns";
+    "title title"
+    "name surname"
+    "cpf phone"
+    "cep street"
+    "district number"
+    "city email"
+    "password confirmPassword"
+    "btns btns";
   gap: 2rem;
 }
+
 
 .form__registration h1 {
   grid-area: title;
@@ -424,11 +425,10 @@ body {
 .section__item {
   max-width: 400px;
   min-width: 200px;
-  padding: 5rem;
+  padding: 3rem;
   width: 100%;
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
 .section__item:hover {
   transform: scale(1.2);
 }
@@ -514,19 +514,12 @@ body {
       "name surname"
       "cpf phone"
       "cep street"
-      "number district"
-      "email city"
+      "district number"
+      "city email"
       "password confirmPassword"
       "btns btns";
     width: 500px;
   }
-  /* .form__registration.enable {
-    width: 100%;
-  }
-
-  .form__registration.enable div {
-    width: 100%;
-  } */
 }
 
 @media screen and (max-width: 1180px) {
@@ -657,8 +650,8 @@ body {
       "street"
       "number"
       "district"
-      "email"
       "city"
+      "email"
       "password"
       "confirmPassword"
       "btns";

@@ -2,44 +2,17 @@
 <%
     String id = request.getParameter("id");
 
-     // variaveis para o banco de dados
-    String banco    = "projetointegrador";
-    String endereco = "jdbc:mysql://localhost:3306/" + banco ;
-    String usuario  = "root" ;
-    String senha    = "" ;
-
-    String driver   = "com.mysql.jdbc.Driver" ;
-
-    //Carregar o driver na memoria
-    Class.forName( driver );
-
-    //cria a variavel para conectar com o banco
-    Connection conexao ;
-
-    //Abrir a conexao com o banco de dados
-    conexao = DriverManager.getConnection(endereco, usuario, senha) ;
-
-    //Cria a variavel sql com o comando de Inserir
-    String sql = "SELECT id_client FROM clientes WHERE id_client = '" + id + "'";
-
-    // String sql = "SELECT * FROM clientes"
-
-    PreparedStatement stm = conexao.prepareStatement(sql);
-
-    ResultSet dados = stm.executeQuery() ;
-    stm.close();
-
     // config para html
     String link_cadastro = "<a href='./login.html?register=true' target='_parent' class='menu__a no-visual__a'><li>cadastra-se</li></a>";
     String link_login = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>login</li></a>";
 
-    String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
-    String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
-    String link_orcamentos = "<a href='./orcamentos.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>orçamentos</li></a>";
-    String link_perfil = "<a href='./perfil.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>perfil</li></a>";
-    String sair = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>sair</li></a>";
+    String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
+    String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
+    String link_orcamentos = "<a href='./orcamentos.jsp?id=" + id + "' target='_parent' class='text-capitalize menu__a no-visual__a'><li>orçamentos</li></a>";
+    String link_perfil = "<a href='./perfil.jsp?id=" + id + "' target='_parent' class='text-capitalize menu__a no-visual__a'><li>perfil</li></a>";
+    String sair = "<a href='./login.jsp' target='_parent' class='text-capitalize menu__a no-visual__a'><li>sair</li></a>";
 
-    String logoff = link_produtos + link_cadastro + link_login;
+    String logoff = link_produtos + link_orcamentos + link_login + link_cadastro;
     String login = link_produtosId + link_orcamentos + link_perfil + sair;
     // String logoffFooter = link_orcamentos + link_perfil;
     // String loginFooter = link_produtos + link_orcamentos + link_perfil;
@@ -65,7 +38,16 @@
         <header class="header">
             <div class="container">
                 <div class="header__img">
-                    <a href="./index.jsp" target="_parent">
+                    <%
+                        if (id == null || id.equals("null"))
+                        {
+                            out.print("<a href='./index.jsp' target='_parent'>");
+                        }
+                        else
+                        {
+                            out.print("<a href='./index.jsp?id=" + id + "' target='_parent'>");
+                        }
+                    %>                    
                         <img src="./assets/imgs/logo.png" alt="logo da empresa Aires Company Brasil">
                     </a>
                 </div>
@@ -75,14 +57,23 @@
                     </div>
                     <nav class="menu">
                         <ul>
-                            <a href="./index.html" target="_parent" class="menu__a no-visual__a">
+                            <%
+                                if (id == null || id.equals("null"))
+                                {
+                                    out.print("<a href='./index.jsp' class='menu__a no-visual__a' target='_parent'>");
+                                }
+                                else
+                                {
+                                    out.print("<a href='./index.jsp?id=" + id + "' class='menu__a no-visual__a' target='_parent'>");
+                                }
+                            %>
                                 <li>home</li>
                             </a>
-                            <a href="./sobre.html" target="_parent" class="menu__a no-visual__a">
+                            <a href="./sobre.jsp" target="_parent" class="menu__a no-visual__a">
                                 <li>sobre nós</li>
                             </a>
                             <%                            
-                                if(id == null)
+                                if(id == null || id.equals("null"))
                                 {
                                     out.println(logoff);
                                 }
@@ -115,16 +106,16 @@
             <section class="section__sobre">
                 <h2 class="section-sobre__title text-capitalize fw-bold"> sobre nós </h2>
                 <div class="section__items">
-                    <div class="section__item">
+                    <%out.print("<div class=\"section__item\" onclick=\"window.location.href='./produtos-e-servicos.jsp?id=" + id + "'\">");%>
                         <img class="carousel-image" src="assets/imgs/Vendas de produtos.png" />
                         <h3 class="section__sobre__subtitle text-capitalize fw-bold"> vendas de produtos </h3>
                     </div>
-                    <div class="section__item">
+                    <%out.print("<div class=\"section__item\" onclick=\"window.location.href='./produtos-e-servicos.jsp?id=" + id + "'\">");%>
                         <img class="carousel-image" src="assets/imgs/Manutenção.png" />
                         <h3 class="section__sobre__subtitle text-capitalize fw-bold"> manutenção </h3>
                     </div>
                 </div>
-                <div class="section__item">
+                <%out.print("<div class=\"section__item\" onclick=\"window.location.href='./produtos-e-servicos.jsp?id=" + id + "'\">");%>
                     <img class="carousel-image" src="assets/imgs/Instalação de equipamento.png" />
                     <h3 class="section__sobre__subtitle text-capitalize fw-bold"> instalação de equipamento </h3>
                 </div>
@@ -138,14 +129,23 @@
                 </div>
                 <nav class="footer__menu">
                     <ul>
-                        <a href="./index.html" class="footer-botão text-capitalize no-visual__a menu__a">
+                        <%
+                            if (id == null || id.equals("null"))
+                            {
+                                out.print("<a href='./index.jsp' class='footer-botão text-capitalize no-visual__a menu__a' target='_parent'>");
+                            }
+                            else
+                            {
+                                out.print("<a href='./index.jsp?id=" + id + "' class='footer-botão text-capitalize no-visual__a menu__a' target='_parent'>");
+                            }
+                        %>
                             <li>home</li>
                         </a>
-                        <a href="./sobre.html" class="footer-botão text-capitalize no-visual__a menu__a">
+                        <a href="./sobre.jsp" class="footer-botão text-capitalize no-visual__a menu__a">
                             <li>sobre nós</li>
                         </a>        
                         <%                            
-                            if(id == null)
+                            if(id == null || id.equals("null"))
                             {
                                 out.println(logoff);
                             }

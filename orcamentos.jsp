@@ -60,6 +60,7 @@
                 show = 3;
             }
         }
+        stm.close();
     
         // String sql = "SELECT * FROM orcamentos as o join clientes as c  WHERE id_client ='" + id + "'" + "on o.id_client = c.id_client;
         //Cria a variavel sql com o comando de Inserir
@@ -195,6 +196,7 @@
                                     out.print("<h2>Valor do total do orcamento: R$" + String.format("%.02f",ValueTotalOrcamento) + "</h2>");
                                 out.print("</div>");
                             out.print("</div>");                                      
+                            stm.close();
                             break;            
                         default:                    
                             response.sendRedirect("./index.jsp");

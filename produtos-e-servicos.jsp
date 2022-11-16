@@ -12,16 +12,17 @@
     }
 
     // links header 
-    String link_cadastro = "<a href='./login.html?register=true' target='_parent' class='menu__a no-visual__a'><li>cadastra-se</li></a>";
-    String link_login = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>login</li></a>";
+    String link_cadastro = "<a href='./login.html?register=true' target='_parent' class='text-capitalize menu__a no-visual__a'><li>cadastra-se</li></a>";
+    String link_login = "<a href='./login.html' target='_parent' class='text-capitalize menu__a no-visual__a'><li>login</li></a>";
 
-    String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
-    String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='menu__a no-visual__a'><li>produtos</li></a>";
-    String link_orcamentos = "<a href='./orcamentos.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>orçamentos</li></a>";
-    String link_perfil = "<a href='./perfil.jsp?id=" + id + "' target='_parent' class='menu__a no-visual__a'><li>perfil</li></a>";
-    String sair = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>sair</li></a>";
+    String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
+    String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
+    String link_orcamentos = "<a href='./orcamentos.jsp?id=" + id + "' target='_parent' class='text-capitalize menu__a no-visual__a'><li>orçamentos</li></a>";
+    String link_perfil = "<a href='./perfil.jsp?id=" + id + "' target='_parent' class='text-capitalize menu__a no-visual__a'><li>perfil</li></a>";
+    String sair = "<a href='./login.jsp' target='_parent' class='text-capitalize menu__a no-visual__a'><li>sair</li></a>";
+    
 
-    String logoff = link_produtos + link_cadastro + link_login;
+    String logoff = link_produtos + link_orcamentos + link_login + link_cadastro;
     String login = link_produtosId + link_orcamentos + link_perfil + sair;
 
  
@@ -44,26 +45,51 @@
 
     String sql = "";
     //Cria a variavel sql com o comando de Inserir
-    if (type == null)
+    switch (type)
     {
-        sql = "SELECT * FROM produtos";
-    }    
-    else if (type.equals("products"))
-    {   
-        sql = "SELECT * FROM produtos WHERE type_product = 1";
+        case "produtos":
+            sql = "SELECT * FROM produtos WHERE type_product = 1";
+            break;
+        case "services":
+            sql = "SELECT * FROM produtos WHERE type_product = 0";
+            break;
+        case "feature":
+            sql = "SELECT * FROM produtos WHERE promotion = 0";
+            break;
+        case "all":
+            sql = "SELECT * FROM produtos";
+            break;
+        default:
+            if (id == null || id.equals("null"))
+            {
+                response.sendRedirect("./index.jsp");               
+            }
+            else
+            {       
+                response.sendRedirect("./index.jsp?id=" + id);
+            }
+            break;
     }
-    else if (type.equals("services"))
-    {
-        sql = "SELECT * FROM produtos WHERE type_product = 0";
-    }
-    else if (type.equals("feature"))
-    {
-        sql = "SELECT * FROM produtos WHERE promotion = 0";
-    }
-    else if(type.equals("all"))
-    {
-        sql = "SELECT * FROM produtos";
-    }
+    // if (type == null)
+    // {
+    //     sql = "SELECT * FROM produtos";
+    // }    
+    // else if (type.equals("products"))
+    // {   
+    //     sql = "SELECT * FROM produtos WHERE type_product = 1";
+    // }
+    // else if (type.equals("services"))
+    // {
+    //     sql = "SELECT * FROM produtos WHERE type_product = 0";
+    // }
+    // else if (type.equals("feature"))
+    // {
+    //     sql = "SELECT * FROM produtos WHERE promotion = 0";
+    // }
+    // else if(type.equals("all"))
+    // {
+    //     sql = "SELECT * FROM produtos";
+    // }
  
     PreparedStatement stm = conexao.prepareStatement(sql);
 
@@ -88,7 +114,16 @@
         <header class="header">
             <div class="container">
                 <div class="header__img">
-                    <a href="./index.jsp" target="_parent">
+                    <%
+                        if (id == null || id.equals("null"))
+                        {
+                            out.print("<a href='./index.jsp' target='_parent'>");
+                        }
+                        else
+                        {
+                            out.print("<a href='./index.jsp?id=" + id + "' target='_parent'>");
+                        }
+                    %>
                         <img src="./assets/imgs/logo.png" alt="logo da empresa Aires Company Brasil">
                     </a>
                 </div>
@@ -98,14 +133,23 @@
                     </div>
                     <nav class="menu">
                         <ul>
-                            <a href="./index.jsp" target="_parent" class="menu__a no-visual__a">
+                            <%
+                                if (id == null || id.equals("null"))
+                                {
+                                    out.print("<a href='./index.jsp' class='text-capitalize menu__a no-visual__a' target='_parent'>");
+                                }
+                                else
+                                {
+                                    out.print("<a href='./index.jsp?id=" + id + "' class='text-capitalize menu__a no-visual__a' target='_parent'>");
+                                }
+                            %>
                                 <li>home</li>
                             </a>
-                            <a href="./sobre.html" target="_parent" class="menu__a no-visual__a">
+                            <a href="./sobre.jsp" target="_parent" class="text-capitalize menu__a no-visual__a">
                                 <li>sobre nós</li>
                             </a>
                             <%                            
-                                if(id.equals("null"))
+                                if(id == null || id.equals("null"))
                                 {
                                     out.println(logoff);
                                 }
@@ -122,56 +166,56 @@
         <main class="main">
             <div class="container">
                 <h1 class="titulo-PS">Produtos e Serviços</h1>
-                <div class="d-flex gap-2">
-                    <%                        
-                        out.print("<form action='./change-product.jsp?id="+ id +"' method='post'>");
+                <%                        
+                    out.print("<form class=\"d-flex align-content-center gap-2\" action='./change-product.jsp?id="+ id +"' method='post'>");
+                %>
+                    <select name="type-product" class="border border-1 border-dark h-100">
+                    <%                          
+                        if (type.equals("services"))
+                        {
+                            out.print("<option selected value='services'>serviços</option>");
+                        }
+                        else
+                        {
+                            out.print("<option value='services'>serviços</option>");
+                        }
+                        if (type.equals("products"))
+                        {
+                            out.print("<option selected value='products'>produtos</option>");
+                        }
+                        else
+                        {
+                            out.print("<option value='produtos'>produtos</option>");
+                        }
+                        if (type.equals("feature"))
+                        {
+                            out.print("<option selected value='feature'>destaques</option>");
+                        }
+                        else
+                        {
+                            out.print("<option value='feature'>destaques</option>");
+                        }
+                        if (type.equals("all"))
+                        {
+                            out.print(" <option selected value='all' selected>todos</option>");
+                        }
+                        else
+                        {
+                            out.print("<option value='all'>todos</option>");
+                        }
                     %>
-                        <select name="type-product" class="border border-1 border-dark">
-                        <%
-                            if (type.equals("services"))
-                            {
-                                out.print("<option selected value='services'>serviços</option>");
-                            }
-                            else
-                            {
-                                out.print("<option value='services'>serviços</option>");
-                            }
-                            if (type.equals("products"))
-                            {
-                                out.print("<option selected value='products'>produtos</option>");
-                            }
-                            else
-                            {
-                                out.print("<option value='products'>produtos</option>");
-                            }
-                            if (type.equals("feature"))
-                            {
-                                out.print("<option selected value='feature'>destaques</option>");
-                            }
-                            else
-                            {
-                                out.print("<option value='feature'>destaques</option>");
-                            }
-                            if (type.equals("all"))
-                            {
-                                out.print(" <option selected value='all' selected>todos</option>");
-                            }
-                            else
-                            {
-                                out.print("<option value='all'>todos</option>");
-                            }
-                        %>
-                        </select>
-                        <input class="btn btn-dark" type="submit" value="Buscar">
-                    </form>
-                </div>
+                    </select>
+                    <input class="btn btn-dark" type="submit" value="Buscar">
+                </form>
                 <div class="imagem-PS">
                 <%
                     int cont = 0;
                     Boolean anotherContainer = false;
                     Boolean any = true;
+                    String id_product = "";
                     while (dados.next())
                     {
+                        id_product = dados.getString("id_product");
                         out.print("<div>");
                             out.print("<div class='imagem-produto'>");
                             // out.print(dados.getString("type_product"));
@@ -186,12 +230,22 @@
                             out.print("</div>");
                             out.print("<h2>" + dados.getString("name") + "</h2>");
                             out.print("<p>Preço R$"  + dados.getString("value_product") + "</p>");  
+                            if (id == null || id.equals("null"))
+                            {
+                                out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                            }
+                            else
+                            {
+                                out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?id="+ id + "&id_product=" + id_product +"'>Crie um Orçamento</a>");
+                            }
                             // out.print("<a href=""></a>");
                         out.print("</div>");   
                         any = false;
                     } 
+                    stm.close();
                     if (any == true)
                     {
+                        // não produtos no banco de dados
                         out.print("<h1>Não há produtos</h1>");
                     }         
                     // // response.sendRedirect("./index.jsp?id=" + id);
@@ -207,14 +261,23 @@
                 </div>
                 <nav class="footer__menu">
                     <ul>
-                        <a href="./index-login.html" class="text-capitalize no-visual__a menu__a">
+                        <%
+                            if (id == null || id.equals("null"))
+                            {
+                                out.print("<a href='./index.jsp' class='text-capitalize no-visual__a menu__a' target='_parent'>");
+                            }
+                            else
+                            {
+                                out.print("<a href='./index.jsp?id=" + id + "' class='text-capitalize no-visual__a menu__a' target='_parent'>");
+                            }
+                        %>
                             <li>home</li>
                         </a>
-                        <a href="./sobre.html" class="text-capitalize no-visual__a menu__a">
+                        <a href="./sobre.jsp" class="text-capitalize no-visual__a menu__a">
                             <li>sobre nós</li>
                         </a>
                         <%                            
-                            if(id == null)
+                            if(id == null || id.equals("null"))
                             {
                                 out.println(logoff);
                             }
@@ -240,5 +303,6 @@
             integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
             crossorigin="anonymous">
         </script>
+        <script src="./js/menu.js"></script>
     </body>
 </html>

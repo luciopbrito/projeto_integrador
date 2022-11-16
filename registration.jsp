@@ -48,6 +48,7 @@
     String test_email = "";
     String message = "";
     String button = "";
+    String title = "";
     Boolean do_register = false;
 
     while (dados.next())
@@ -55,6 +56,7 @@
         test_email = dados.getString("email");
         if (test_email != "")
         {
+            title = "Cadastro inválido";
             message = "Este email já é utilizado no sistema";
             button = "<button class='btn btn-cinza-azulado btn-lg' onclick='window.history.back()'>Voltar ao Cadastro</button>";
             // String script = "<script src='./js/backHistory.js'></script>";
@@ -78,7 +80,7 @@
 
         stm.execute() ;
         stm.close();
-
+        title = "Dados Salvos com Sucesso";
         message = "Cadastro realizado com sucesso";
         button = "<a class='btn btn-lg btn-cinza-azulado' href='./login.html'>Faça o login</a>";
     } 
@@ -96,7 +98,7 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Dados Salvos com Sucesso</title>
+    <title><%out.print(title);%></title>
 </head>
 
 <body>
