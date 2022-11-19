@@ -82,7 +82,7 @@
         stm.close();
         title = "Dados Salvos com Sucesso";
         message = "Cadastro realizado com sucesso";
-        button = "<a class='btn btn-lg btn-cinza-azulado' href='./login.html'>Faça o login</a>";
+        button = "<a class='btn btn-lg btn-cinza-azulado' href='./login.jsp'>Faça o login</a>";
     } 
 %>
 <!DOCTYPE html>

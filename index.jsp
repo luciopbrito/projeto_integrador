@@ -3,8 +3,8 @@
     String id = request.getParameter("id");
 
     // config para html
-    String link_cadastro = "<a href='./login.html?register=true' target='_parent' class='menu__a no-visual__a'><li>cadastra-se</li></a>";
-    String link_login = "<a href='./login.html' target='_parent' class='menu__a no-visual__a'><li>login</li></a>";
+    String link_cadastro = "<a href='./login.jsp?register=true' target='_parent' class='menu__a no-visual__a'><li>cadastra-se</li></a>";
+    String link_login = "<a href='./login.jsp' target='_parent' class='menu__a no-visual__a'><li>login</li></a>";
 
     String link_produtosId = "<a href='./produtos-e-servicos.jsp?id=" + id + "&type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
     String link_produtos = "<a href='./produtos-e-servicos.jsp?type=all' target='_parent' class='text-capitalize menu__a no-visual__a'><li>produtos</li></a>";
