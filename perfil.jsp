@@ -136,7 +136,7 @@
                                     while (dados.next())
                                     {
                                         out.print("<p>Nome: <br>" + dados.getString("name") + "</p>");
-                                        out.print("<p>Email:: <br>" + dados.getString("email") + "</p>");
+                                        out.print("<p>Email: <br>" + dados.getString("email") + "</p>");
                                     }   
                                     stm.close();
                                 %>                                     

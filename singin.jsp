@@ -8,6 +8,11 @@
     String redirect = request.getParameter("redirect");
     String type_product = request.getParameter("type");
 
+    if (redirect == null)
+    {
+        redirect = "";
+    }
+
     // variaveis para o banco de dados
     String banco    = "projetointegrador";
     String endereco = "jdbc:mysql://localhost:3306/" + banco ;
@@ -38,6 +43,7 @@
     Boolean hasEmail = false;
     Boolean hasPassword = false;
     String title = "";
+    String titleMain = "";
     String btn = "";
 
     ResultSet dados = stm.executeQuery() ;
@@ -93,13 +99,15 @@
         }
         else
         {
-            title = "<h1>Email ou Senha estão incorretos</h1>";
+            title = "Tente Novamente";
+            titleMain = "<h1>Email ou Senha estão incorretos</h1>";
             btn = "<button class='btn btn-cinza-azulado' onclick='window.history.back()'>Voltar</button>";
         }
     }  
     else
     {
-        title = "<h1>Conta inexistente</h1>";
+        title = "Faça um Cadastro";
+        titleMain = "<h1>Conta inexistente</h1>";
         btn = "<button class='btn btn-cinza-azulado' onclick='window.history.back()'>Voltar</button>";
     }
     stm.close() ;   
@@ -117,7 +125,7 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
-        <title>ERROR</title>
+        <title><%out.print(title);%></title>
     </head>
     <body>
         <main class="main">
@@ -125,7 +133,7 @@
                 <div class="d-flex flex-column align-items-center gap-3">
                     <h1>
                         <%
-                        out.print(title);
+                        out.print(titleMain);
                         %>
                     </h1>
                     <%
