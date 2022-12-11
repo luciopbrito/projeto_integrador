@@ -1,3 +1,4 @@
+
 const $cpf = $('input[name="cpf"]');
 const $telefone = $('input[name="phone"]');
 const $cep = $('input[name="cep"]');

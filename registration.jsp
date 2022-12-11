@@ -6,12 +6,11 @@
     String full_name = new String(name + " " + surname);
     String cep = request.getParameter("cep");
     String street = request.getParameter("street");
-    String number = request.getParameter("number");
+    int number = Integer.parseInt(request.getParameter("number"));
     String district = new String(request.getParameter("district").getBytes("ISO-8859-1"), "UTF-8");
     String city = new String(request.getParameter("city").getBytes("ISO-8859-1"), "UTF-8");
     String cpf = request.getParameter("cpf");
     String phone =  request.getParameter("phone");
-    String endereco = "Rua " + street + "," + number + "-" + district + "." + cep + " " + city;
     String email = request.getParameter("email");
     String password = new String(request.getParameter("password").getBytes("ISO-8859-1"), "UTF-8");
 
@@ -68,7 +67,7 @@
     if (do_register == false)
     {
         //inserindo no banco
-        sql = "INSERT INTO clientes (name, phone, email, password, cpf, endereco) values(?,?,?,?,?,?)";
+        sql = "INSERT INTO clientes (name, phone, email, password, cpf, cep, street, street_number, district, city) values(?,?,?,?,?,?,?,?,?,?)";
 
         stm = conexao.prepareStatement(sql);
         stm.setString(1, full_name);
@@ -76,7 +75,11 @@
         stm.setString(3, email);
         stm.setString(4, password);
         stm.setString(5, cpf);
-        stm.setString(6, endereco);
+        stm.setString(6, cep);
+        stm.setString(7, street);
+        stm.setInt(8, number);
+        stm.setString(9, district);
+        stm.setString(10, city);
 
         stm.execute() ;
         stm.close();
