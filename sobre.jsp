@@ -94,7 +94,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Gestão em Tecnologia</h5>
                   <p class="card-text" style="text-align: justify;">Olá, meu nome é Matheus, curso gestão em tecnologia da informação, meu sonho é trabalhar em outros estados ou países, mundo afora, conhecer o mundo. Tentando melhorar 1% a cada dia para alcançar essa objetivo.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <a href="https://www.linkedin.com/in/matheus-morais-02ab20218" class="btn btn-primary">LinkedIn</a>
                 </div>
             </div>
             <div class="card" style="width: 25rem;">
