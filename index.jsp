@@ -69,9 +69,9 @@
                             %>
                                 <li>home</li>
                             </a>
-                            <a href="./sobre.jsp" target="_parent" class="menu__a no-visual__a">
-                                <li>sobre nós</li>
-                            </a>
+                            <%
+                            out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                            %>
                             <%                            
                                 if(id == null || id.equals("null"))
                                 {
@@ -141,9 +141,9 @@
                         %>
                             <li>home</li>
                         </a>
-                        <a href="./sobre.jsp" class="footer-botão text-capitalize no-visual__a menu__a">
-                            <li>sobre nós</li>
-                        </a>        
+                        <%
+                        out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                        %>       
                         <%                            
                             if(id == null || id.equals("null"))
                             {

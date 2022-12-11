@@ -47,17 +47,17 @@
     //Cria a variavel sql com o comando de Inserir
     switch (type)
     {
-        case "produtos":
-            sql = "SELECT * FROM produtos WHERE type_product = 1";
+        case "products":
+            sql = "SELECT * FROM produtos p";
             break;
         case "services":
-            sql = "SELECT * FROM produtos WHERE type_product = 0";
+            sql = "SELECT * FROM servicos s";
             break;
         case "feature":
-            sql = "SELECT * FROM produtos WHERE promotion = 0";
+            sql = "SELECT * FROM produtos p JOIN servicos s on s.isPromotion = p.isPromotion WHERE s.isPromotion = 0 GROUP BY s.id_service, s.name, s.value, s.isPromotion";
             break;
         case "all":
-            sql = "SELECT * FROM produtos";
+            sql = "SELECT * FROM produtos p";
             break;
         default:
             if (id == null || id.equals("null"))
@@ -70,26 +70,6 @@
             }
             break;
     }
-    // if (type == null)
-    // {
-    //     sql = "SELECT * FROM produtos";
-    // }    
-    // else if (type.equals("products"))
-    // {   
-    //     sql = "SELECT * FROM produtos WHERE type_product = 1";
-    // }
-    // else if (type.equals("services"))
-    // {
-    //     sql = "SELECT * FROM produtos WHERE type_product = 0";
-    // }
-    // else if (type.equals("feature"))
-    // {
-    //     sql = "SELECT * FROM produtos WHERE promotion = 0";
-    // }
-    // else if(type.equals("all"))
-    // {
-    //     sql = "SELECT * FROM produtos";
-    // }
  
     PreparedStatement stm = conexao.prepareStatement(sql);
 
@@ -145,9 +125,9 @@
                             %>
                                 <li>home</li>
                             </a>
-                            <a href="./sobre.jsp" target="_parent" class="text-capitalize menu__a no-visual__a">
-                                <li>sobre nós</li>
-                            </a>
+                            <%
+                            out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                            %>
                             <%                            
                                 if(id == null || id.equals("null"))
                                 {
@@ -185,7 +165,7 @@
                         }
                         else
                         {
-                            out.print("<option value='produtos'>produtos</option>");
+                            out.print("<option value='products'>produtos</option>");
                         }
                         if (type.equals("feature"))
                         {
@@ -197,7 +177,7 @@
                         }
                         if (type.equals("all"))
                         {
-                            out.print(" <option selected value='all' selected>todos</option>");
+                            out.print(" <option selected value='all'>todos</option>");
                         }
                         else
                         {
@@ -209,46 +189,177 @@
                 </form>
                 <div class="imagem-PS">
                 <%
-                    int cont = 0;
-                    Boolean anotherContainer = false;
-                    Boolean any = true;
                     String id_product = "";
-                    while (dados.next())
+                    String id_service = "";
+                    Boolean any = true;        
+                    switch (type)
                     {
-                        id_product = dados.getString("id_product");
-                        out.print("<div>");
-                            out.print("<div class='imagem-produto'>");
-                            // out.print(dados.getString("type_product"));
-                                if (Integer.parseInt(dados.getString("type_product")) == 1)
-                                {
-                                    out.print("<img src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");
-                                }
-                                else
-                                {
-                                    out.print("<img src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");
-                                }                                    
-                            out.print("</div>");
-                            out.print("<h2>" + dados.getString("name") + "</h2>");
-                            out.print("<p>Preço R$"  + dados.getString("value_product") + "</p>");  
-                            if (id == null || id.equals("null"))
+                        case "products":
+                            // int cont = 0;
+                            // // Boolean anotherContainer = false;
+                            any = true;
+                            id_product = "";
+                            while (dados.next())
                             {
-                                out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
-                            }
-                            else
+                                id_product = dados.getString("id_product");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");                                   
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("p.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("p.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idProduct=" + id_product +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");   
+                                any = false;
+                            } 
+                            stm.close();
+                            if (any == true)
                             {
-                                out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?id="+ id + "&id_product=" + id_product +"'>Crie um Orçamento</a>");
+                                // não produtos no banco de dados
+                                out.print("<h1>Não há produtos</h1>");
+                            }   
+                            break;                                  
+                        case "services":
+                            // int cont = 0;
+                            // // Boolean anotherContainer = false;
+                            any = true;
+                            id_service = "";
+                            while (dados.next())
+                            {
+                                id_product = dados.getString("id_service");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");      
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("s.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("s.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idService=" + id_service +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");   
+                                any = false;
+                            }                             
+                            stm.close();
+                            if (any == true)
+                            {
+                                // não produtos no banco de dados
+                                out.print("<h1>Não há produtos</h1>");
+                            }         
+                            break;
+                        case "feature":
+                            any = true;
+                            id_product = "";
+                            id_service = "";
+                            while (dados.next())
+                            {                                
+                                id_product = dados.getString("id_product");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");                                 
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("p.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("p.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idProduct=" + id_product +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");  
+                                id_service = dados.getString("id_service");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");                        
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("s.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("s.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idService=" + id_service +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");                            
+                                any = false; 
+                            }           
+                            stm.close();
+                            if (any == true)
+                            {
+                                // não produtos no banco de dados
+                                out.print("<h1>Não há produtos</h1>");
+                            }         
+                            break;
+                        case "all":
+                            any = true;
+                            id_product = "";
+                            id_service = "";                                                    
+                            while (dados.next())
+                            {                                
+                                id_product = dados.getString("id_product");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");                                 
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("p.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("p.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idProduct=" + id_product +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");
+                                any = false; 
                             }
-                            // out.print("<a href=""></a>");
-                        out.print("</div>");   
-                        any = false;
-                    } 
-                    stm.close();
-                    if (any == true)
-                    {
-                        // não produtos no banco de dados
-                        out.print("<h1>Não há produtos</h1>");
-                    }         
-                    // // response.sendRedirect("./index.jsp?id=" + id);
+                            sql = "SELECT * FROM servicos s";
+                            stm = conexao.prepareStatement(sql);
+                            dados = stm.executeQuery() ; 
+                            while (dados.next())
+                            {
+                                id_service = dados.getString("id_service");
+                                out.print("<div>");
+                                    out.print("<div class='imagem-produto'>");
+                                        out.print("<img src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");                        
+                                    out.print("</div>");
+                                    out.print("<h2>" + dados.getString("s.name") + "</h2>");
+                                    out.print("<p>Preço R$"  + dados.getString("s.value") + "</p>");  
+                                    if (id == null || id.equals("null"))
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + " href='./login.jsp?redirect=produtos&type=" + type + "'>Crie um Orçamento</a>");
+                                    }
+                                    else
+                                    {
+                                        out.print("<a " + "class=\"btn btn-cinza-azulado btn-lg\"" + "href='./registrar-orcamento.jsp?idClient="+ id + "&idService=" + id_service +"'>Crie um Orçamento</a>");
+                                    }
+                                out.print("</div>");
+                                any = false;  
+                            }           
+                            stm.close();
+                            if (any == true)
+                            {
+                                // não produtos no banco de dados
+                                out.print("<h1>Não há produtos</h1>");
+                            }  
+                            break;
+                    }                                       
                 %>
                 </div>
             </div>
@@ -273,9 +384,9 @@
                         %>
                             <li>home</li>
                         </a>
-                        <a href="./sobre.jsp" class="text-capitalize no-visual__a menu__a">
-                            <li>sobre nós</li>
-                        </a>
+                        <%
+                        out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                        %>
                         <%                            
                             if(id == null || id.equals("null"))
                             {

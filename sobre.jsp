@@ -11,46 +11,6 @@
     String sair = "<a href='./login.jsp' target='_parent' class='text-capitalize menu__a no-visual__a'><li>sair</li></a>";
     String logoff = link_produtos + link_orcamentos + link_login + link_cadastro;
     String login = link_produtosId + link_orcamentos + link_perfil + sair;
-
-    if (id == null || id.equals("null"))
-    {
-        response.sendRedirect("index.jsp");
-    }
-
-    // variaveis para o banco de dados
-    String banco    = "projetointegrador";
-    String endereco = "jdbc:mysql://localhost:3306/" + banco ;
-    String usuario  = "root" ;
-    String senhaBanco    = "" ;
-
-    String driver   = "com.mysql.jdbc.Driver" ;
-
-    //Carregar o driver na memoria
-    Class.forName( driver );
-
-    //cria a variavel para conectar com o banco
-    Connection conexao ;
-
-    //Abrir a conexao com o banco de dados
-    conexao = DriverManager.getConnection(endereco, usuario, senhaBanco) ;
-
-    String sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-    PreparedStatement stm = conexao.prepareStatement(sql);
-    ResultSet dados = stm.executeQuery();
- 
-    while (dados.next())
-    {
-        if (dados.getString("id_client").equals("null"))
-        {
-            response.sendRedirect("./index.jsp");
-        }
-        else
-        {
-            
-        }
-    }
-   
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -120,102 +80,29 @@
         </div>
     </header>
     <main class="main">
-        <div class="container-perfil container">
-            <h1 class="dadostitulo">Dados do Cadastro</h1>
-            <div class="container container_dados">
-                <div>
-                    <div class="container-dados-pessoais">
-                        <h1 class="dadostitulo">Dados Pessoais</h1>
-                        <div class="container-fluid d-flex">
-                            <div class="d-flex flex-column gap-4 dados-filho">
-                                <%
-                                    sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-                                    stm = conexao.prepareStatement(sql);
-                                    dados = stm.executeQuery();
-                                    while (dados.next())
-                                    {
-                                        out.print("<p>Nome: <br>" + dados.getString("name") + "</p>");
-                                        out.print("<p>Email: <br>" + dados.getString("email") + "</p>");
-                                    }   
-                                    stm.close();
-                                %>                                     
-                            </div>
-                            <div class="d-flex flex-column gap-4 dados-filho">
-                                <%
-                                    sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-                                    stm = conexao.prepareStatement(sql);
-                                    dados = stm.executeQuery();
-                                    while (dados.next())
-                                    {
-                                        out.print("<p>Telefone: <br>" + dados.getString("phone") + "</p>");
-                                        out.print("<p>Senha: <br>" + dados.getString("password") + "</p>");
-                                    }    
-                                    stm.close();
-                                %>  
-                            </div>
-                        </div>
-                        <%
-                        //out.print("<button class='btn btn-lg btn-cinza-azulado' onclick=\"window.location.href='./editar-dados.jsp?id=" + id + "&dados=pessoal" + "'\"" +">editar</button>");
-                        %>
-                        <%
-                        out.print("<button class='btn btn-lg btn-cinza-azulado'>editar</button>");
-                        %>
-                    </div>
+        <div class="container d-flex justify-content-around flex-wrap gap-5 p-4">
+            <div class="card" style="width: 25rem;">
+                <img src="./assets/imgs/imagem-lucio.jpeg" class="card-img-top" alt="imagem do integrante Lúcio" width="600">
+                <div class="card-body">
+                  <h5 class="card-title">Desenvolvedor FrontEnd</h5>
+                  <p class="card-text" style="text-align: justify;">Olá meu nome é Lúcio, curso ADS na Faculdade ENIAC meu sonho é trabalhar fora do Brasil, estou correndo atrás desse sonho a cada dia!</p>
+                  <a href="https://www.linkedin.com/in/lucio-brito/" class="btn btn-primary">LinkedIn</a>
                 </div>
-                <div>
-                    <div class="container-dados-endereco">                    
-                        <h1 class="dadostitulo">Endereço</h1>
-                        <div class="d-flex">
-                            <div class="d-flex flex-column gap-4 dados-filho">
-                                <%
-                                    sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-                                    stm = conexao.prepareStatement(sql);
-                                    dados = stm.executeQuery();
-                                    while (dados.next())
-                                    {
-                                        out.print("<p>CEP: <br>" + dados.getString("cep") + "</p>");
-                                        out.print("<p>Bairro: <br>" + dados.getString("district") + "</p>");
-                                    }  
-                                    stm.close();  
-                                %> 
-                            </div>
-                            <div class="d-flex flex-column gap-4 dados-filho">
-                                <%
-                                    sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-                                    stm = conexao.prepareStatement(sql);
-                                    dados = stm.executeQuery();
-                                    while (dados.next())
-                                    {
-                                        out.print("<p>Rua: <br>" + dados.getString("street") + "</p>");
-                                        out.print("<p>Cidade: <br>" + dados.getString("city") + "</p>");
-                                    }    
-                                    stm.close();
-                                %> 
-                            </div>
-                            <div class="d-flex flex-column gap-4 dados-filho">   
-                                <%
-                                    sql = "SELECT * FROM clientes WHERE id_client ='" + id + "'"; 
-
-                                    stm = conexao.prepareStatement(sql);
-                                    dados = stm.executeQuery();
-                                    while (dados.next())
-                                    {
-                                        out.print("<p>Nº: <br>" + dados.getString("street_number") + "</p>");
-                                    }    
-                                    stm.close();
-                                %>                             
-                            </div>
-                        </div>
-                        <%
-                        //out.print("<button class='btn btn-lg btn-cinza-azulado' onclick=\"window.location.href='./editar-dados.jsp?id=" + id + "&dados=endereco" + "'\"" +">editar</button>");
-                        %>           
-                        <%
-                        out.print("<button class='btn btn-lg btn-cinza-azulado'>editar</button>");%>           
-                    </div>
+            </div>
+            <div class="card" style="width: 25rem;">
+                <img src="./assets/imgs/imagem-matheus.jpeg" class="card-img-top" alt="imagem do integrante matheus" width="600">
+                <div class="card-body">
+                  <h5 class="card-title">Gestão em Tecnologia</h5>
+                  <p class="card-text" style="text-align: justify;">Olá, meu nome é Matheus, curso gestão em tecnologia da informação, meu sonho é trabalhar em outros estados ou países, mundo afora, conhecer o mundo. Tentando melhorar 1% a cada dia para alcançar essa objetivo.</p>
+                  <a href="https://www.linkedin.com/in/matheus-morais-02ab20218" class="btn btn-primary">LinkedIn</a>
+                </div>
+            </div>
+            <div class="card" style="width: 25rem;">
+                <img src="./assets/imgs/imagem-wagner.jpeg" class="card-img-top" alt="imagem do integrante Wagner" width="600">
+                <div class="card-body">
+                  <h5 class="card-title">LP de Dados</h5>
+                  <p class="card-text" style="text-align: justify;">Olá, me chamo Wagner, curso ADS na faculdade Eniac, trabalho atualmente na empresa Vivo, meu sonho é poder trabalhar de Home office para estar sempre perto da minha família.</p>
+                  <a href="https://www.linkedin.com/in/wagner-overclock2014-b47540a7/" class="btn btn-primary">LinkedIn</a>
                 </div>
             </div>
         </div>
