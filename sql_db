@@ -1,0 +1,68 @@
+------------- table clientes --------------
+CREATE TABLE `projetointegrador`.`clientes`(
+    `id_client` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(60) NOT NULL,
+    `phone` VARCHAR(14) NULL,
+    `email` VARCHAR(50) NOT NULL,
+    `password` VARCHAR(50) NOT NULL,
+    `cpf` VARCHAR(14) NOT NULL,
+    `cep` VARCHAR(8) NOT NULL,
+    `street` VARCHAR(150) NOT NULL,
+    `street_number` INT NOT NULL,
+    `district` VARCHAR(100) NOT NULL,  
+    `city` VARCHAR(100) NOT NULL,
+    PRIMARY KEY(`id_client`)
+) ENGINE = InnoDB;
+
+-------------------------------------------
+
+
+------------- table produtos --------------
+CREATE TABLE `projetointegrador`.`produtos`(
+    `id_product` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(60) NOT NULL,
+    `value_product` FLOAT NOT NULL,
+    `isPromotion` INT NOT NULL,
+    PRIMARY KEY(`id_product`) 
+) ENGINE = InnoDB;
+------------------------------------------
+
+------------- table serviços --------------
+CREATE TABLE `projetointegrador`.`servicos`(
+    `id_service` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(60) NOT NULL,
+    `value_service` FLOAT NOT NULL,   
+    `isPromotion` INT NOT NULL,
+    PRIMARY KEY(`id_service`) 
+) ENGINE = InnoDB;
+------------------------------------------
+
+CREATE TABLE `projetointegrador`.`orcamentos`(
+    `id_orcamento` INT NOT NULL AUTO_INCREMENT,
+    `id_client` INT NOT NULL,
+    `id_product` INT NULL,
+    `id_service` INT NULL,
+    `start_date` DATE NOT NULL,
+    `due_date` DATE NOT NULL,
+    `description` VARCHAR(200) NULL,
+    `local` INT NULL,
+    `type_service` INT NULL,
+    `cep` VARCHAR(8) NOT NULL,
+    `street` VARCHAR(150) NOT NULL,
+    `street_number` INT NOT NULL,
+    `district` VARCHAR(100) NOT NULL,  
+    `city` VARCHAR(100) NOT NULL,
+    `qtde_product` INT NULL,	
+    `qtde_service` INT NULL,	
+    `value_orcamento` FLOAT NOT NULL,
+    PRIMARY KEY(`id_orcamento`)
+) ENGINE = InnoDB;
+
+ALTER TABLE orcamentos
+ADD CONSTRAINT fk_client FOREIGN KEY (`id_client`) REFERENCES clientes (`id_client`);
+
+ALTER TABLE orcamentos
+ADD CONSTRAINT fk_product FOREIGN KEY (`id_product`) REFERENCES produtos (`id_product`);
+
+ALTER TABLE orcamentos
+ADD CONSTRAINT fk_service FOREIGN KEY (`id_service`) REFERENCES servicos (`id_service`);

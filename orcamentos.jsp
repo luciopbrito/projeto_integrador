@@ -1,4 +1,4 @@
-<%@page language="java" import="java.sql.*,java.util.*, java.text.*" contentType="text/html" pageEncoding="UTF-8" %>
+<%@page language="java" import="java.sql.*,java.util.*, java.text.*, java.time.format.DateTimeFormatter, java.time.LocalDate" contentType="text/html" pageEncoding="UTF-8" %>
 <%
     String id = request.getParameter("id");
 
@@ -14,6 +14,7 @@
     String logoff = link_produtos + link_orcamentos + link_login + link_cadastro;
     String login = link_produtosId + link_orcamentos + link_perfil + sair;
     Integer show = 0;
+    Boolean searchOrcamento = false;
     Float ValueTotalOrcamento = 0.0F; 
 
 
@@ -22,9 +23,7 @@
     { 
         show = 1;  
     }
-
-    // possui id 
-    if (show != 1)
+    else
     {
         // variaveis para o banco de dados
         String banco    = "projetointegrador";
@@ -43,7 +42,7 @@
         //Abrir a conexao com o banco de dados
         conexao = DriverManager.getConnection(endereco, usuario, senha) ;
 
-        String sql = "SELECT * FROM orcamentos WHERE id_client ='" + id + "'"; 
+        String sql = "SELECT id_client FROM clientes WHERE id_client ='" + id + "'"; 
 
         PreparedStatement stm = conexao.prepareStatement(sql);
     
@@ -51,25 +50,52 @@
 
         while (dados.next())
         {
-            if (dados.getString("id_client").equals("null"))
+            if (dados.getString("id_client") != null)
             {
-                show = 2;
-            }
-            else
-            {
-                show = 3;
+                searchOrcamento = true;
             }
         }
+
+        dados.close();
         stm.close();
-    
-        // String sql = "SELECT * FROM orcamentos as o join clientes as c  WHERE id_client ='" + id + "'" + "on o.id_client = c.id_client;
-        //Cria a variavel sql com o comando de Inserir
-    
-        // stm = conexao.prepareStatement(sql);
-    
-        // dados = stm.executeQuery() ; 
     }
-    
+
+    if (searchOrcamento == true)
+    {
+         // possui id    
+        String banco    = "projetointegrador";
+        String endereco = "jdbc:mysql://localhost:3306/" + banco ;
+        String usuario  = "root" ;
+        String senha    = "" ;
+
+        String driver   = "com.mysql.jdbc.Driver" ;
+
+        //Carregar o driver na memoria
+        Class.forName( driver );
+
+        //cria a variavel para conectar com o banco
+        Connection conexao ;
+
+        //Abrir a conexao com o banco de dados
+        conexao = DriverManager.getConnection(endereco, usuario, senha) ;
+
+        String sql = "SELECT id_client id FROM orcamentos WHERE id_client ='" + id + "'"; 
+        
+        PreparedStatement stm = conexao.prepareStatement(sql);
+
+        ResultSet dados = stm.executeQuery();                           
+        
+        if (dados.next() != false)
+        {
+            show = 3;
+        }
+        else
+        {
+            show = 2;
+        }           
+        dados.close();
+        stm.close();    
+    }   
 %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -103,9 +129,9 @@
                             <a href="./index.jsp" target="_parent" class="menu__a no-visual__a">
                                 <li>home</li>
                             </a>
-                            <a href="./sobre.jsp" target="_parent" class="menu__a no-visual__a">
-                                <li>sobre nós</li>
-                            </a>
+                            <%
+                            out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                            %>
                             <%                            
                                 if(id == null || id.equals("null"))
                                 {
@@ -124,7 +150,7 @@
         <main>        
             <div class="container d-flex flex-column align-content-between gap-5 mb-5 mt-5">
                 <h1 class="text-center fw-bold">Orçamentos</h1>            
-                <%
+                <%                
                     switch (show) {
                         case 1:
                              // não é usuário cadastro no sistema
@@ -149,57 +175,169 @@
                             String driver   = "com.mysql.jdbc.Driver" ;
                         
                             //Carregar o driver na memoria
-                            Class.forName( driver );
-                        
-                            //cria a variavel para conectar com o banco
-                            Connection conexao ;
+                            Class.forName( driver );                                    
                         
                             //Abrir a conexao com o banco de dados
-                            conexao = DriverManager.getConnection(endereco, usuario, senha) ;
-                                                                   
-                            String sql = "SELECT p.name, p.value_product, p.type_product, o.start_date, o.due_date, o.value_orcamento, o.id_client FROM orcamentos as o join produtos as p on p.id_product = o.id_product WHERE o.id_client ='" + id + "'";                        
+                            Connection conexao = DriverManager.getConnection(endereco, usuario, senha) ;
 
+                            String sql = "SELECT COUNT(id_service) id_service, COUNT(id_product) id_product FROM orcamentos WHERE id_client = '" + id + "'";
                             PreparedStatement stm = conexao.prepareStatement(sql);
                         
                             ResultSet dados = stm.executeQuery();
-                            out.print("<div class='container-orcamentos p-5 d-flex justify-content-center flex-wrap gap-5'>");
-                            while (dados.next())
-                            {                                
-                                // out.print("<p>Numero do orcamento" + dados.getString("o.id_") + "</p>");
-                                out.print("<div class=\"card imagem-produto\">");
-                                // out.print(dados.getString("type_product"));
-                                if (Integer.parseInt(dados.getString("p.type_product")) == 1)
+
+                            Integer typeSql = 0;
+                            while (dados.next() != false)
+                            {
+                                if (Integer.valueOf(dados.getString("id_service")) > 0 && Integer.valueOf(dados.getString("id_product")) == 0)
                                 {
-                                    out.print("<img class='card-img-top' src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");
+                                    typeSql = 1;
                                 }
-                                else
+                                else if (Integer.valueOf(dados.getString("id_service")) == 0 && Integer.valueOf(dados.getString("id_product")) > 0)
                                 {
-                                    out.print("<img class='card-img-top' src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");
-                                }      
-                                out.print("<div class='card-body d-flex flex-column'>");           
-                                    out.print("<h2 class='card-title text-center'>Nome do Produto: " + dados.getString("p.name") + "</h2>");                                                                   
-                                    out.print("<p class='card-text text-center fs-3'>");
-                                        out.print("<strong>Preço:</strong> R$" + dados.getString("p.value_product") + "<br>");                                    
-                                        out.print("<strong>Inicio do orçamento:</strong> <br>" + dados.getString("o.start_date") + "<br>");
-                                        out.print("<strong>Vencimento do orcamento:</strong> <br>" + dados.getString("due_date") + "<br>");    
-                                    out.print("</p>");
-                                    out.print("<div class='d-flex justify-content-center'>");
-                                        out.print("<a href='#'class='btn btn-cinza-azulado'>Ver Detalhes</a>");
-                                    out.print("</div>");
-                                out.print("</div>");                            
-                                out.print("</div>");
-                                ValueTotalOrcamento += Float.parseFloat(dados.getString("o.value_orcamento"));
-                            }         
-                            out.print("</div>");  
+                                    typeSql = 2;
+                                }         
+                                else if (Integer.valueOf(dados.getString("id_service")) > 0 && Integer.valueOf(dados.getString("id_product")) > 0)
+                                {
+                                    typeSql = 3;
+                                }
+                            }
+
+                            switch (typeSql)
+                            {
+                                case 1:
+                                    sql = "SELECT s.name, s.value, o.start_date, o.due_date, o.value_orcamento, o.id_client FROM orcamentos as o join servicos as s on s.id_service = o.id_service WHERE o.id_client ='" + id + "'";                        
+
+                                    stm = conexao.prepareStatement(sql);
+                                
+                                    dados = stm.executeQuery();
+                                
+                                    out.print("<div class='container-orcamentos p-5 d-flex justify-content-center flex-wrap gap-5'>");
+                                    while (dados.next())
+                                    {                                
+                                        // out.print("<p>Numero do orcamento" + dados.getString("o.id_") + "</p>");
+                                        out.print("<div class=\"card imagem-produto\">");
+                                            out.print("<img class='card-img-top' src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");
+                                        out.print("<div class='card-body d-flex flex-column'>");           
+                                            out.print("<h2 class='card-title text-center'>Nome do Produto: " + dados.getString("s.name") + "</h2>");                                                                   
+                                            out.print("<p class='card-text text-center fs-3'>");
+                                                out.print("<strong>Preço:</strong> R$" + dados.getString("s.value") + "<br>");                                    
+                                                out.print("<strong>Inicio do orçamento:</strong> <br>" + dados.getString("o.start_date") + "<br>");
+                                                out.print("<strong>Vencimento do orcamento:</strong> <br>" + dados.getString("o.due_date") + "<br>");    
+                                            out.print("</p>");
+                                            out.print("<div class='d-flex justify-content-center'>");
+                                                out.print("<a href='#'class='btn btn-cinza-azulado'>Ver Detalhes</a>");
+                                            out.print("</div>");
+                                        out.print("</div>");                            
+                                        out.print("</div>");
+                                        ValueTotalOrcamento += Float.parseFloat(dados.getString("o.value_orcamento"));
+                                    }         
+                                    out.print("</div>");  
+                                    break;
+                                case 2:
+                                    sql = "SELECT p.name, p.value, o.start_date, o.due_date, o.value_orcamento, o.qtde_product, o.id_client FROM orcamentos as o join produtos as p on p.id_product = o.id_product WHERE o.id_client ='" + id + "'";                        
+
+                                    stm = conexao.prepareStatement(sql);
+                                
+                                    dados = stm.executeQuery();
+                                
+                                    out.print("<div class='container-orcamentos p-5 d-flex justify-content-center flex-wrap gap-5'>");
+                                    while (dados.next())
+                                    {                                
+                                        // out.print("<p>Numero do orcamento" + dados.getString("o.id_") + "</p>");
+                                        out.print("<div class=\"card imagem-produto\">");
+                                            out.print("<img class='card-img-top' src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");
+                                        out.print("<div class='card-body d-flex flex-column'>");           
+                                            out.print("<h2 class='card-title text-center'>Nome do Produto: " + dados.getString("p.name") + "</h2>");                                                                   
+                                            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");   
+                                            LocalDate start_date = LocalDate.parse(dados.getString("o.start_date"));
+                                            LocalDate due_date = LocalDate.parse(dados.getString("o.due_date"));
+                                            
+                                            out.print("<p class='card-text text-center fs-3'>");
+                                                out.print("<strong>Preço:</strong> R$" + dados.getString("p.value") + "<br>");                                    
+                                                out.print("<strong>Quantidade:</strong>" + dados.getString("o.qtde_product") + "<br>");                                    
+                                                out.print("<strong>Inicio do orçamento:</strong> <br>" + formato.format(start_date) + "<br>");
+                                                out.print("<strong>Vencimento do orcamento:</strong> <br>" + formato.format(due_date) + "<br>");    
+                                            out.print("</p>");
+                                            out.print("<div class='d-flex justify-content-center'>");
+                                                out.print("<a href='#'class='btn btn-cinza-azulado'>Ver Detalhes</a>");
+                                            out.print("</div>");
+                                        out.print("</div>");                            
+                                        out.print("</div>");
+                                        ValueTotalOrcamento += Float.parseFloat(dados.getString("o.value_orcamento"));
+                                    }         
+                                    out.print("</div>");  
+                                    break;
+                                case 3:
+                                    sql = "SELECT s.name, s.value, o.start_date, o.due_date, o.value_orcamento, o.id_client FROM orcamentos as o join servicos as s on s.id_service = o.id_service WHERE o.id_client ='" + id + "'";                        
+
+                                    stm = conexao.prepareStatement(sql);
+                                
+                                    dados = stm.executeQuery();
+                                
+                                    out.print("<div class='container-orcamentos p-5 d-flex justify-content-center flex-wrap gap-5'>");
+                                    while (dados.next())
+                                    {                                
+                                        // out.print("<p>Numero do orcamento" + dados.getString("o.id_") + "</p>");
+                                        out.print("<div class=\"card imagem-produto\">");
+                                            out.print("<img class='card-img-top' src='./assets/imgs/imagem-servico.jpg' alt='imagem de serviço'>");
+                                        out.print("<div class='card-body d-flex flex-column'>");           
+                                            out.print("<h2 class='card-title text-center'>Nome do Produto: " + dados.getString("s.name") + "</h2>");                                                                   
+                                            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");   
+                                            LocalDate start_date = LocalDate.parse(dados.getString("o.start_date"));
+                                            LocalDate due_date = LocalDate.parse(dados.getString("o.due_date"));
+
+                                            out.print("<p class='card-text text-center fs-3'>");
+                                                out.print("<strong>Preço:</strong> R$" + dados.getString("s.value") + "<br>");                                    
+                                                out.print("<strong>Inicio do orçamento:</strong> <br>" + formato.format(start_date) + "<br>");
+                                                out.print("<strong>Vencimento do orcamento:</strong> <br>" + formato.format(start_date) + "<br>");    
+                                            out.print("</p>");
+                                            out.print("<div class='d-flex justify-content-center'>");
+                                                out.print("<a href='#'class='btn btn-cinza-azulado'>Ver Detalhes</a>");
+                                            out.print("</div>");
+                                        out.print("</div>");                            
+                                        out.print("</div>");
+                                        ValueTotalOrcamento += Float.parseFloat(dados.getString("o.value_orcamento"));
+                                    }                                          
+
+                                    // serviços
+                                    sql = "SELECT p.name, p.value, o.start_date, o.due_date, o.value_orcamento, o.qtde_product, o.id_client FROM orcamentos as o join produtos as p on p.id_product = o.id_product WHERE o.id_client ='" + id + "'";                        
+
+                                    stm = conexao.prepareStatement(sql);
+                                
+                                    dados = stm.executeQuery();
+                                                                    
+                                    while (dados.next())
+                                    {                                
+                                        // out.print("<p>Numero do orcamento" + dados.getString("o.id_") + "</p>");
+                                        out.print("<div class=\"card imagem-produto\">");
+                                            out.print("<img class='card-img-top' src='./assets/imgs/imagem-produto.jpg' alt='imagem do produto'>");
+                                        out.print("<div class='card-body d-flex flex-column'>");           
+                                            out.print("<h2 class='card-title text-center'>Nome do Produto: " + dados.getString("p.name") + "</h2>");                                                                   
+                                            out.print("<p class='card-text text-center fs-3'>");
+                                                out.print("<strong>Preço:</strong> R$" + dados.getString("p.value") + "<br>");                                    
+                                                out.print("<strong>Quantidade:</strong>" + dados.getString("o.qtde_product") + "<br>");                                    
+                                                out.print("<strong>Inicio do orçamento:</strong> <br>" + dados.getString("o.start_date") + "<br>");
+                                                out.print("<strong>Vencimento do orcamento:</strong> <br>" + dados.getString("o.due_date") + "<br>");    
+                                            out.print("</p>");
+                                            out.print("<div class='d-flex justify-content-center'>");
+                                                out.print("<a href='#'class='btn btn-cinza-azulado'>Ver Detalhes</a>");
+                                            out.print("</div>");
+                                        out.print("</div>");                            
+                                        out.print("</div>");
+                                        ValueTotalOrcamento += Float.parseFloat(dados.getString("o.value_orcamento"));
+                                    }         
+                                    out.print("</div>"); 
+                                    break;
+                            }                            
                             out.print("<div class='mh-25 p-5 d-flex justify-content-center flex-wrap gap-5 flex-fill'>");
                                 out.print("<div class=\"mt-5\">");
-                                    out.print("<h2>Valor do total do orcamento: R$" + String.format("%.02f",ValueTotalOrcamento) + "</h2>");
+                                    out.print("<h2>Valor do total dos orcamentos: R$" + String.format("%.02f",ValueTotalOrcamento) + "</h2>");
                                 out.print("</div>");
                             out.print("</div>");                                      
                             stm.close();
                             break;            
                         default:                    
-                            response.sendRedirect("./index.jsp");
+                            // response.sendRedirect("./index.jsp");
                             break;
                     }            
                     out.print("</div>");                        
@@ -217,9 +355,9 @@
                         <a href="./index-login.jsp" class="text-capitalize no-visual__a menu__a">
                             <li>home</li>
                         </a>
-                        <a href="./sobre.jsp" class="text-capitalize no-visual__a menu__a">
-                            <li>sobre nós</li>
-                        </a>
+                        <%
+                        out.print("<a href='./sobre.jsp?id=" + id + "\' target='_parent' class='menu__a no-visual__a'> <li>sobre nós</li> </a>");
+                        %>
                         <%                            
                             if(id == null)
                             {
